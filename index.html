@@ -14,196 +14,148 @@
 <link rel="icon" type="image/png" href="icon-192.png">
 <style>
   :root{
-    --bg:#0E1216;
-    --surface:#171D24;
-    --raised:#1F262F;
-    --line:#2A333D;
-    --line-soft:#212932;
-    --txt:#E6EDF3;
-    --dim:#8B98A5;
-    --faint:#5B6673;
-    --ok:#3FB950;
-    --def:#F85149;
-    --na:#6E7681;
-    --wait:#D29922;
-    --info:#58A6FF;
+    --bg:#0E1216; --surface:#171D24; --raised:#1F262F;
+    --line:#2A333D; --soft:#212932;
+    --txt:#E6EDF3; --dim:#8B98A5; --faint:#5B6673;
+    --ok:#3FB950; --def:#F85149; --wait:#D29922; --info:#58A6FF;
     --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
     --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0}
-  body{
-    background:var(--bg);color:var(--txt);font-family:var(--sans);
-    font-size:16px;line-height:1.45;padding-bottom:96px;
-    -webkit-font-smoothing:antialiased;
-  }
+  body{background:var(--bg);color:var(--txt);font-family:var(--sans);
+    font-size:16px;line-height:1.45;padding-bottom:96px;-webkit-font-smoothing:antialiased}
 
-  /* ---------- painel superior ---------- */
-  header{
-    position:sticky;top:0;z-index:40;
-    background:linear-gradient(180deg,#141A21 0%,#11161C 100%);
-    border-bottom:1px solid var(--line);
-  }
-  .bar{
-    display:flex;align-items:center;gap:12px;
-    padding:12px 16px 10px;max-width:760px;margin:0 auto;
-  }
+  header{position:sticky;top:0;z-index:40;
+    background:linear-gradient(180deg,#141A21,#11161C);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;gap:10px;padding:11px 14px 9px;max-width:780px;margin:0 auto}
   .brand{flex:1;min-width:0}
-  .brand h1{
-    margin:0;font-size:13px;font-weight:700;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--txt);
-  }
-  .brand p{
-    margin:2px 0 0;font-size:11px;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--faint);font-family:var(--mono);
-  }
-  .lamp{
-    font-family:var(--mono);font-size:11px;font-weight:700;
-    letter-spacing:.1em;text-transform:uppercase;
-    padding:7px 11px;border-radius:3px;white-space:nowrap;
-    border:1px solid;
-  }
+  .brand h1{margin:0;font-size:12.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+  .brand p{margin:2px 0 0;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--faint);font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lamp{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;padding:7px 10px;border-radius:3px;white-space:nowrap;border:1px solid}
   .lamp.pend{color:var(--wait);border-color:#4A3A10;background:#241D0A}
   .lamp.done{color:var(--ok);border-color:#1B4426;background:#0D2413}
-
-  .track{height:2px;background:var(--line-soft)}
-  .fill{height:100%;width:0;background:var(--wait);transition:width .25s ease,background .25s ease}
+  .navb{background:var(--raised);border:1px solid var(--line);color:var(--dim);
+    border-radius:4px;padding:8px 11px;font-family:var(--mono);font-size:11px;
+    font-weight:700;letter-spacing:.06em;cursor:pointer;white-space:nowrap}
+  .navb:active{transform:scale(.95)}
+  .track{height:2px;background:var(--soft)}
+  .fill{height:100%;width:0;background:var(--wait);transition:width .25s,background .25s}
   .fill.done{background:var(--ok)}
 
-  /* ---------- conteúdo ---------- */
-  main{max-width:760px;margin:0 auto;padding:0 16px}
+  main{max-width:780px;margin:0 auto;padding:0 14px}
+  .view{display:none}
+  .view.on{display:block}
 
-  .setup{
-    background:var(--surface);border:1px solid var(--line);
-    border-radius:6px;padding:14px;margin:16px 0;
-  }
-  .lbl{
-    display:block;font-family:var(--mono);font-size:10px;
-    letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
-    margin-bottom:7px;
-  }
-  #rel{
-    width:100%;background:var(--bg);color:var(--txt);
-    border:1px solid var(--line);border-radius:4px;
-    padding:11px 12px;font-size:15px;font-family:var(--sans);
-    line-height:1.4;resize:vertical;
-  }
-  #rel::placeholder{color:var(--faint)}
-  select,input[type=text]{
-    width:100%;background:var(--bg);color:var(--txt);
-    border:1px solid var(--line);border-radius:4px;
-    padding:11px 12px;font-size:15px;font-family:var(--sans);
-  }
+  .setup{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;margin:16px 0}
+  .lbl{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+  select,input[type=text],textarea{width:100%;background:var(--bg);color:var(--txt);
+    border:1px solid var(--line);border-radius:4px;padding:11px 12px;
+    font-size:15px;font-family:var(--sans);line-height:1.4}
+  textarea{resize:vertical}
+  ::placeholder{color:var(--faint)}
   select:focus,input:focus,textarea:focus{outline:2px solid var(--info);outline-offset:1px}
+  optgroup{color:var(--faint);font-style:normal}
+  option{color:var(--txt)}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .mt{margin-top:12px}
 
-  .toggle{
-    display:flex;align-items:center;gap:10px;margin-top:14px;
-    padding-top:13px;border-top:1px solid var(--line-soft);
-    cursor:pointer;user-select:none;
-  }
-  .toggle input{width:19px;height:19px;accent-color:var(--info);flex:none}
-  .toggle span{font-size:14px;color:var(--dim)}
+  .toggle{display:flex;align-items:flex-start;gap:10px;margin-top:13px;padding-top:13px;
+    border-top:1px solid var(--soft);cursor:pointer;user-select:none}
+  .toggle input{width:19px;height:19px;accent-color:var(--info);flex:none;margin-top:1px}
+  .toggle span{font-size:14px;color:var(--dim);line-height:1.35}
+  .toggle small{display:block;color:var(--faint);font-size:12px;margin-top:2px}
 
-  /* ---------- grupos ---------- */
   .group{margin:22px 0 0}
-  .ghead{
-    display:flex;align-items:baseline;gap:9px;
-    padding:0 2px 8px;border-bottom:1px solid var(--line);
-  }
-  .ghead h2{
-    margin:0;font-size:12px;font-weight:700;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--txt);
-  }
+  .ghead{display:flex;align-items:baseline;gap:9px;padding:0 2px 8px;border-bottom:1px solid var(--line)}
+  .ghead h2{margin:0;font-size:12px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
+  .gsub{font-size:11px;color:var(--faint);font-family:var(--mono)}
   .gcount{font-family:var(--mono);font-size:11px;color:var(--faint);margin-left:auto}
 
-  .item{
-    display:flex;align-items:center;gap:12px;
-    padding:12px 2px;border-bottom:1px solid var(--line-soft);
-  }
-  .dot{
-    width:9px;height:9px;border-radius:50%;flex:none;
-    background:transparent;border:1.5px solid #3A444F;
-    transition:all .15s ease;
-  }
+  .item{display:flex;align-items:center;gap:11px;padding:12px 2px;border-bottom:1px solid var(--soft)}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none;background:transparent;
+    border:1.5px solid #3A444F;transition:all .15s}
   .dot.ok{background:var(--ok);border-color:var(--ok);box-shadow:0 0 7px rgba(63,185,80,.45)}
   .dot.def{background:var(--def);border-color:var(--def);box-shadow:0 0 7px rgba(248,81,73,.45)}
   .dot.blq{background:var(--wait);border-color:var(--wait);box-shadow:0 0 7px rgba(210,153,34,.4)}
-  .dot.na{background:var(--na);border-color:var(--na);box-shadow:none}
-
+  .const .dot.def{background:var(--wait);border-color:var(--wait);box-shadow:0 0 7px rgba(210,153,34,.4)}
   .iname{flex:1;min-width:0;font-size:15px}
-  .iname small{display:block;font-size:12px;color:var(--faint);margin-top:1px}
+  .iname small{display:block;font-size:12px;color:var(--faint);margin-top:1px;line-height:1.3}
 
-  .btns{display:flex;gap:5px;flex:none}
-  .btns button{
-    font-family:var(--mono);font-size:11px;font-weight:700;
-    letter-spacing:.04em;padding:9px 0;width:38px;
-    background:var(--raised);color:var(--dim);
-    border:1px solid var(--line);border-radius:4px;cursor:pointer;
-    transition:all .12s ease;
-  }
+  .btns{display:flex;gap:4px;flex:none}
+  .btns button{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.03em;
+    padding:9px 7px;min-width:50px;background:var(--raised);color:var(--dim);
+    border:1px solid var(--line);border-radius:4px;cursor:pointer;transition:all .12s}
   .btns button:active{transform:scale(.94)}
   .btns button[data-v=ok].on{background:#0D2413;border-color:var(--ok);color:var(--ok)}
   .btns button[data-v=def].on{background:#2A0E0C;border-color:var(--def);color:var(--def)}
   .btns button[data-v=blq].on{background:#2A1E06;border-color:var(--wait);color:var(--wait)}
-  .btns button[data-v=na].on{background:#22272D;border-color:var(--na);color:#9AA5B1}
+  .const .btns button[data-v=def].on{background:#2A1E06;border-color:var(--wait);color:var(--wait)}
 
-  .note{
-    margin:0 0 12px 21px;display:none;
-  }
+  .note{margin:0 0 12px 20px;display:none}
   .note.show{display:block}
-  .note input{
-    background:#1A0F0E;border-color:#4A211E;font-size:14px;padding:9px 11px;
-  }
+  .note input{background:#1A0F0E;border-color:#4A211E;font-size:14px;padding:9px 11px}
   .note input::placeholder{color:#7A5A57}
   .note.val input{background:#0C1620;border-color:#1F3A52}
   .note.val input::placeholder{color:#5C7A96}
 
-  /* ---------- rodapé ---------- */
-  footer{
-    position:fixed;left:0;right:0;bottom:0;z-index:40;
-    background:#11161C;border-top:1px solid var(--line);
-    padding:12px 16px calc(12px + env(safe-area-inset-bottom));
-  }
-  .fwrap{max-width:760px;margin:0 auto;display:flex;gap:10px;align-items:center}
-  .fstat{flex:1;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.05em}
+  footer{position:fixed;left:0;right:0;bottom:0;z-index:40;background:#11161C;
+    border-top:1px solid var(--line);padding:11px 14px calc(11px + env(safe-area-inset-bottom))}
+  .fwrap{max-width:780px;margin:0 auto;display:flex;gap:10px;align-items:center}
+  .fstat{flex:1;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em;line-height:1.35}
   .fstat b{color:var(--wait)}
   .fstat.ready b{color:var(--ok)}
-  .gen{
-    background:var(--info);color:#04121F;border:none;border-radius:5px;
-    padding:13px 20px;font-size:14px;font-weight:700;cursor:pointer;
-    font-family:var(--sans);white-space:nowrap;
-  }
+  .gen{background:var(--info);color:#04121F;border:none;border-radius:5px;padding:13px 18px;
+    font-size:14px;font-weight:700;cursor:pointer;font-family:var(--sans);white-space:nowrap}
   .gen:disabled{background:var(--raised);color:var(--faint);cursor:not-allowed}
   .gen:active:not(:disabled){transform:scale(.97)}
 
-  /* ---------- saída ---------- */
   .out{margin:26px 0 8px;display:none}
   .out.show{display:block}
-  .out textarea{
-    width:100%;min-height:300px;background:var(--surface);color:var(--txt);
-    border:1px solid var(--line);border-radius:6px;padding:14px;
-    font-family:var(--mono);font-size:12.5px;line-height:1.65;resize:vertical;
-  }
+  .out textarea{min-height:300px;background:var(--surface);font-family:var(--mono);
+    font-size:12.5px;line-height:1.65;padding:14px;border-radius:6px}
   .oact{display:flex;gap:9px;margin-top:10px}
-  .oact button{
-    flex:1;padding:12px;border-radius:5px;font-size:13.5px;font-weight:600;
-    cursor:pointer;font-family:var(--sans);
-    background:var(--raised);color:var(--txt);border:1px solid var(--line);
-  }
+  .oact button{flex:1;padding:12px;border-radius:5px;font-size:13.5px;font-weight:600;
+    cursor:pointer;font-family:var(--sans);background:var(--raised);color:var(--txt);border:1px solid var(--line)}
   .oact button.pri{background:var(--ok);color:#04140A;border-color:var(--ok)}
 
-  .hint{
-    font-size:12.5px;color:var(--faint);line-height:1.5;
-    padding:14px;background:var(--surface);border:1px solid var(--line-soft);
-    border-radius:6px;margin:18px 0 26px;
-  }
+  .hint{font-size:12.5px;color:var(--faint);line-height:1.55;padding:14px;
+    background:var(--surface);border:1px solid var(--soft);border-radius:6px;margin:18px 0 26px}
   .hint b{color:var(--dim)}
+
+  /* histórico */
+  .htop{display:flex;gap:9px;align-items:center;margin:16px 0 12px}
+  .htop input{flex:1}
+  .hbtn{background:var(--raised);border:1px solid var(--line);color:var(--dim);
+    border-radius:4px;padding:11px 13px;font-size:13px;cursor:pointer;font-family:var(--sans);white-space:nowrap}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:6px;
+    padding:13px;margin-bottom:10px}
+  .ctop{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .cos{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--info)}
+  .cmod{font-size:13px;color:var(--dim)}
+  .cdat{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .ccli{font-size:14.5px;margin-top:3px}
+  .cbadges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+  .bdg{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.05em;
+    padding:4px 8px;border-radius:3px;border:1px solid;text-transform:uppercase}
+  .bdg.d{color:var(--def);border-color:#4A1815;background:#1F0C0B}
+  .bdg.b{color:var(--wait);border-color:#4A3A10;background:#241D0A}
+  .bdg.o{color:var(--ok);border-color:#1B4426;background:#0D2413}
+  .bdg.p{color:var(--faint);border-color:var(--line);background:var(--raised)}
+  .cact{display:flex;gap:7px;margin-top:11px}
+  .cact button{flex:1;padding:9px;border-radius:4px;font-size:12.5px;font-weight:600;
+    cursor:pointer;font-family:var(--sans);background:var(--raised);color:var(--txt);border:1px solid var(--line)}
+  .cact button.del{flex:0 0 auto;padding:9px 12px;color:var(--def);border-color:#3A1A18;background:#1A0C0B}
+  .vazio{text-align:center;color:var(--faint);padding:48px 20px;font-size:14px;line-height:1.6}
 
   @media (max-width:420px){
     .row2{grid-template-columns:1fr}
-    .btns button{width:41px}
+    .btns button{min-width:46px;font-size:10px;padding:9px 5px}
     .iname{font-size:14.5px}
+    .brand h1{font-size:11.5px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -213,28 +165,52 @@
 <header>
   <div class="bar">
     <div class="brand">
-      <h1>Checklist de Bancada</h1>
+      <h1 id="titulo">Checklist de Bancada</h1>
       <p id="sub">Selecione o equipamento</p>
     </div>
+    <button class="navb" id="nav">Histórico</button>
     <div class="lamp pend" id="lamp">— / —</div>
   </div>
   <div class="track"><div class="fill" id="fill"></div></div>
 </header>
 
 <main>
+
+<!-- ============ VIEW: CHECKLIST ============ -->
+<div class="view on" id="vChk">
   <div class="setup">
     <label class="lbl" for="tipo">Equipamento</label>
     <select id="tipo">
       <option value="">Selecione…</option>
-      <option value="ps3">PlayStation 3 (Fat / Slim / Super Slim)</option>
-      <option value="ps4">PlayStation 4 (Fat / Slim)</option>
-      <option value="ps4pro">PlayStation 4 Pro</option>
-      <option value="ps5">PlayStation 5 (com leitor)</option>
-      <option value="ps5d">PlayStation 5 Digital</option>
-      <option value="x360">Xbox 360</option>
-      <option value="xone">Xbox One / One S / One X</option>
-      <option value="xsx">Xbox Series X</option>
-      <option value="xss">Xbox Series S</option>
+      <optgroup label="PlayStation 3">
+        <option value="ps3fat">PS3 Fat</option>
+        <option value="ps3slim">PS3 Slim</option>
+        <option value="ps3ss">PS3 Super Slim</option>
+      </optgroup>
+      <optgroup label="PlayStation 4">
+        <option value="ps4fat">PS4 Fat</option>
+        <option value="ps4slim">PS4 Slim</option>
+        <option value="ps4pro">PS4 Pro</option>
+      </optgroup>
+      <optgroup label="PlayStation 5">
+        <option value="ps5">PS5 (com leitor)</option>
+        <option value="ps5d">PS5 Digital</option>
+        <option value="ps5s">PS5 Slim (com leitor)</option>
+        <option value="ps5sd">PS5 Slim Digital</option>
+      </optgroup>
+      <optgroup label="Xbox 360">
+        <option value="x360fat">Xbox 360 Fat</option>
+        <option value="x360slim">Xbox 360 Slim / E</option>
+      </optgroup>
+      <optgroup label="Xbox One">
+        <option value="xonefat">Xbox One Fat</option>
+        <option value="xones">Xbox One S</option>
+        <option value="xonex">Xbox One X</option>
+      </optgroup>
+      <optgroup label="Xbox Series">
+        <option value="xss">Xbox Series S</option>
+        <option value="xsx">Xbox Series X</option>
+      </optgroup>
     </select>
 
     <div class="row2">
@@ -248,10 +224,27 @@
       </div>
     </div>
 
-    <div style="margin-top:12px">
-      <label class="lbl" for="rel">Defeito relatado / motivo da entrada</label>
-      <textarea id="rel" rows="2" placeholder="O que o cliente relatou, ou o que você observou na recepção"></textarea>
+    <div class="mt">
+      <label class="lbl" for="tel">Telefone</label>
+      <input type="text" id="tel" placeholder="47 99999-9999" inputmode="tel">
     </div>
+
+    <div class="mt">
+      <label class="lbl" for="rel">Defeito relatado</label>
+      <textarea id="rel" rows="2" placeholder="O que o cliente relatou"></textarea>
+    </div>
+
+    <div class="mt">
+      <label class="lbl" for="ace">Acessórios recebidos</label>
+      <input type="text" id="ace" placeholder="Console, controle, cabo de alimentação…">
+    </div>
+
+    <label class="toggle">
+      <input type="checkbox" id="eletr">
+      <span>Diagnóstico elétrico
+        <small>Marque quando o console não liga, liga e desliga, ou desliga sozinho</small>
+      </span>
+    </label>
 
     <label class="toggle">
       <input type="checkbox" id="ctrl">
@@ -262,12 +255,13 @@
   <div id="lista"></div>
 
   <div class="hint" id="hint">
-    <b>OK</b> testado e funcionando &middot; <b>DEF</b> testado, com defeito &middot;
-    <b>BLQ</b> não deu para testar agora (outro defeito impede) &middot;
-    <b>N/A</b> não se aplica a este aparelho.<br><br>
-    O resumo só é liberado quando todos os pontos tiverem resposta.
-    Marcando defeito, abre um campo para anotar o que encontrou.
-    Os pontos <b>BLQ</b> entram no resumo com aviso para retestar depois do reparo.
+    <b>Recepção e inspeção visual:</b> responda <b>SIM</b> ou <b>NÃO</b> —
+    marcando SIM, abre campo para descrever o que encontrou.<br><br>
+    <b>Demais grupos:</b> <b>OK</b> testado e funcionando &middot;
+    <b>DEF</b> testado, com defeito &middot;
+    <b>BLQ</b> não deu para testar agora (outro defeito impede).<br><br>
+    O resumo só libera quando todos os pontos tiverem resposta.
+    Tudo é salvo automaticamente no histórico.
   </div>
 
   <div class="out" id="out">
@@ -275,9 +269,20 @@
     <textarea id="txt" readonly></textarea>
     <div class="oact">
       <button class="pri" id="cp">Copiar resumo</button>
-      <button id="rs">Limpar tudo</button>
+      <button id="novo">Novo checklist</button>
     </div>
   </div>
+</div>
+
+<!-- ============ VIEW: HISTÓRICO ============ -->
+<div class="view" id="vHist">
+  <div class="htop">
+    <input type="text" id="busca" placeholder="Buscar por OS, cliente ou modelo">
+    <button class="hbtn" id="bkp">Backup</button>
+  </div>
+  <div id="cards"></div>
+</div>
+
 </main>
 
 <footer>
@@ -291,292 +296,478 @@
 (function(){
   "use strict";
 
-  // ---- catálogo de testes -------------------------------------------------
-  // flag: consoles onde o item se aplica. "*" = todos.
-  var GRUPOS = [
-    { nome:"Energia e funcionamento", itens:[
-      {id:"liga",  n:"Liga",                     d:"Aciona pelo botão e pelo controle", c:"*"},
-      {id:"mant",  n:"Mantém ligado sob carga",  d:"Jogo pesado por período prolongado", c:"*"},
-      {id:"desl",  n:"Desliga e religa normal",  d:"Ciclo completo, sem travar",        c:"*"}
+  var CHAVE = "cavanhol.checklists.v1";
+
+  /* ---------- catálogo ---------- */
+  var PS3="ps3fat,ps3slim,ps3ss", PS4="ps4fat,ps4slim,ps4pro",
+      PS5="ps5,ps5d,ps5s,ps5sd", X360="x360fat,x360slim",
+      XONE="xonefat,xones,xonex", XSER="xss,xsx";
+  var COM_LEITOR="ps3fat,ps3slim,ps3ss,ps4fat,ps4slim,ps4pro,ps5,ps5s,"+X360+","+XONE+",xsx";
+  var FONTE_EXT="x360fat,x360slim,xonefat";
+  var FONTE_INT=PS3+","+PS4+","+PS5+",xones,xonex,"+XSER;
+  var COM_AV=PS3+","+X360;
+  var COM_OPTICA=PS3+","+PS4+","+X360+","+XONE;
+  var COM_WIFI=PS3+","+PS4+","+PS5+",x360slim,"+XONE+","+XSER;
+
+  var GRUPOS=[
+    { nome:"Recepção", sub:"antes de abrir", tipo:"const", itens:[
+      {id:"carc",  n:"Avarias na carcaça",           d:"Riscos, trincas, tampa faltando, parafuso externo", c:"*"},
+      {id:"queda", n:"Sinais de queda ou impacto",   d:"Amassados, conector torto, folga",            c:"*"},
+      {id:"abriu", n:"Sinais de abertura anterior",  d:"Lacre, parafuso espanado, marca de chave",    c:"*"}
     ]},
-    { nome:"Vídeo e áudio", itens:[
-      {id:"hdmi",  n:"Imagem pelo HDMI",         d:"",                                   c:"*"},
-      {id:"av",    n:"Imagem pela saída AV",     d:"Saída analógica",                    c:"ps3,x360"},
-      {id:"hdin",  n:"Entrada HDMI (passagem)",  d:"HDMI IN — quase sempre esquecido",   c:"xone"},
-      {id:"som",   n:"Áudio pelo HDMI",          d:"",                                   c:"*"},
-      {id:"opt",   n:"Saída óptica",             d:"",                                   c:"ps3,ps4,ps4pro,x360,xone"}
+    { nome:"Inspeção visual da placa", sub:"depois de abrir", tipo:"const", itens:[
+      {id:"oxid",  n:"Oxidação",                     d:"Trilhas, pads, ao redor de conectores",       c:"*"},
+      {id:"cont",  n:"Contaminação",                 d:"Sujeira, líquido, insetos",                   c:"*"},
+      {id:"interv",n:"Intervenção anterior na placa",d:"Fluxo, solda refeita, jumper, CI trocado",    c:"*"},
+      {id:"dano",  n:"Componentes danificados",      d:"Estourado, queimado, ausente",                c:"*"},
+      {id:"flats", n:"Flats ou conectores avariados",d:"Rasgado, prensado, mal encaixado",            c:"*"}
     ]},
-    { nome:"Armazenamento", itens:[
-      {id:"reco",  n:"Reconhece o disco",        d:"",                                   c:"*"},
-      {id:"smart", n:"Saúde SMART",               d:"Testar FORA do console",             c:"*", val:"Saúde em % (ex.: 87%)"},
-      {id:"mseg",  n:"Sobe sem modo de segurança", d:"Sem pedir reinstalação",           c:"ps3,ps4,ps4pro,ps5,ps5d"}
+    { nome:"Acionamento", sub:"", itens:[
+      {id:"liga",  n:"Liga pelo botão",              d:"",                                            c:"*"},
+      {id:"ligac", n:"Liga pelo controle",           d:"",                                            c:"*"},
+      {id:"prot",  n:"Não aciona proteção",          d:"Não desliga sozinho ao ligar",                c:"*"},
+      {id:"mant",  n:"Mantém ligado sob carga",      d:"Jogo pesado por período prolongado",          c:"*"},
+      {id:"cicl",  n:"Desliga e religa normal",      d:"Ciclo completo, sem travar",                  c:"*"}
     ]},
-    { nome:"Leitor de discos", itens:[
-      {id:"puxa",  n:"Puxa a mídia",             d:"",                                   c:"ps3,ps4,ps4pro,ps5,x360,xone,xsx"},
-      {id:"le",    n:"Lê a mídia",               d:"Testar jogo e filme, se possível",   c:"ps3,ps4,ps4pro,ps5,x360,xone,xsx"},
-      {id:"ejeta", n:"Ejeta pelo botão",         d:"",                                   c:"ps3,ps4,ps4pro,ps5,x360,xone,xsx"}
+    { nome:"Vídeo e áudio", sub:"", itens:[
+      {id:"hdmi",  n:"Imagem pelo HDMI",             d:"",                                            c:"*"},
+      {id:"av",    n:"Imagem pela saída AV",         d:"Saída analógica",                             c:COM_AV},
+      {id:"hdin",  n:"Entrada HDMI (passagem)",      d:"HDMI IN — quase sempre esquecido",            c:XONE},
+      {id:"som",   n:"Áudio pelo HDMI",              d:"",                                            c:"*"},
+      {id:"opt",   n:"Saída óptica",                 d:"",                                            c:COM_OPTICA}
     ]},
-    { nome:"Refrigeração", itens:[
-      {id:"cool",  n:"Cooler gira",              d:"",                                   c:"*"},
-      {id:"ruid",  n:"Sem ruído anormal",        d:"Rolamento, raspagem, assobio",       c:"*"},
-      {id:"temp",  n:"Temperatura sob carga",    d:"Sem aquecimento anormal",            c:"*", val:"Temperatura máxima observada"}
+    { nome:"Armazenamento", sub:"", itens:[
+      {id:"reco",  n:"Reconhece o disco",            d:"",                                            c:"*"},
+      {id:"smart", n:"Saúde SMART",                  d:"Testar FORA do console",                      c:"*", val:"Saúde em % (ex.: 87%)"},
+      {id:"mseg",  n:"Sobe sem modo de segurança",   d:"Sem pedir reinstalação do sistema",           c:PS3+","+PS4+","+PS5}
     ]},
-    { nome:"Conexões", itens:[
-      {id:"usb",   n:"Todas as portas USB",      d:"Testar UMA A UMA, frente e trás",    c:"*"},
-      {id:"wifi",  n:"Conecta no Wi-Fi",         d:"",                                   c:"*"},
-      {id:"rede",  n:"Conector de rede cabeada", d:"Cabo conectado, testar conexão",     c:"*"},
-      {id:"bt",    n:"Pareia controle sem fio",  d:"Testar também à distância",          c:"*"}
+    { nome:"Leitor de discos", sub:"", itens:[
+      {id:"puxa",  n:"Puxa a mídia",                 d:"",                                            c:COM_LEITOR},
+      {id:"le",    n:"Lê a mídia",                   d:"Testar jogo e, se possível, filme",           c:COM_LEITOR},
+      {id:"ejeta", n:"Ejeta a mídia",                d:"Pelo botão e pelo menu",                      c:COM_LEITOR}
     ]},
-    { nome:"Painel e carcaça", itens:[
-      {id:"bpow",  n:"Botão power",              d:"",                                   c:"*"},
-      {id:"leds",  n:"LEDs indicadores",         d:"",                                   c:"*"},
-      {id:"carc",  n:"Estado da carcaça",        d:"Riscos, trincas, parafusos faltando",c:"*"}
+    { nome:"Refrigeração", sub:"", itens:[
+      {id:"cool",  n:"Cooler gira",                  d:"",                                            c:"*"},
+      {id:"ruid",  n:"Sem ruído anormal",            d:"Rolamento, raspagem, assobio",                c:"*"},
+      {id:"temp",  n:"Temperatura sob carga",        d:"Sem aquecimento anormal",                     c:"*", val:"Temperatura máxima (ex.: 68°C)"}
+    ]},
+    { nome:"Portas e conectividade", sub:"", itens:[
+      {id:"usb",   n:"Portas USB",                   d:"Testar UMA A UMA, frente e trás",             c:"*"},
+      {id:"wifi",  n:"Conecta no Wi-Fi",             d:"",                                            c:COM_WIFI},
+      {id:"rede",  n:"Rede cabeada",                 d:"Conectar cabo e testar conexão",              c:"*"},
+      {id:"bt",    n:"Pareia controle sem fio",      d:"Testar também a alguns metros",               c:"*"}
+    ]},
+    { nome:"Painel frontal", sub:"", itens:[
+      {id:"bpow",  n:"Botão power",                  d:"",                                            c:"*"},
+      {id:"beje",  n:"Botão eject",                  d:"",                                            c:COM_LEITOR},
+      {id:"leds",  n:"LEDs indicadores",             d:"",                                            c:"*"}
     ]}
   ];
 
-  var CTRL = { nome:"Controles", itens:[
-    {id:"c_ana", n:"Analógicos sem drift",   d:"Testar os dois eixos de cada um", c:"*"},
-    {id:"c_bot", n:"Todos os botões",        d:"Inclui L1/L2/R1/R2 e direcional", c:"*"},
-    {id:"c_usb", n:"Conector USB do controle",d:"Carrega e comunica",             c:"*"},
-    {id:"c_vib", n:"Vibração",               d:"",                                c:"*"},
-    {id:"c_bat", n:"Bateria / compartimento",d:"",                                c:"*"}
+  var ELETRICO={ nome:"Diagnóstico elétrico", sub:"medições", itens:[
+    {id:"e_fext", n:"Fonte externa",                   d:"Tensão de saída sob carga",                 c:FONTE_EXT, val:"Tensão medida"},
+    {id:"e_fint", n:"Fonte de alimentação interna",    d:"Tensões de saída da fonte",                 c:FONTE_INT, val:"Tensões medidas"},
+    {id:"e_stby", n:"Standby na placa",                d:"Energia inicial de acionamento",            c:"*",       val:"Tensão medida"},
+    {id:"e_curto",n:"Sem curto nas linhas principais", d:"Linha principal e derivadas",               c:"*"},
+    {id:"e_start",n:"Sequência de partida completa",   d:"Rails sobem na ordem, até liberar o start", c:"*"},
+    {id:"e_cons", n:"Consumo normal",                  d:"Em repouso e ao acionar",                   c:"*",       val:"Consumo medido"},
+    {id:"e_aquec",n:"Sem aquecimento anormal",         d:"Câmera térmica ou toque, com o console energizado", c:"*"}
   ]};
 
-  var NOMES = {
-    ps3:"PlayStation 3", ps4:"PlayStation 4", ps4pro:"PlayStation 4 Pro",
-    ps5:"PlayStation 5", ps5d:"PlayStation 5 Digital", x360:"Xbox 360",
-    xone:"Xbox One", xsx:"Xbox Series X", xss:"Xbox Series S"
+  var CTRLG={ nome:"Controles", sub:"", itens:[
+    {id:"c_ana", n:"Analógicos sem drift",     d:"Testar os dois eixos de cada um",  c:"*"},
+    {id:"c_bot", n:"Todos os botões",          d:"Inclui gatilhos e direcional",     c:"*"},
+    {id:"c_usb", n:"Conector USB do controle", d:"Carrega e comunica",               c:"*"},
+    {id:"c_vib", n:"Vibração",                 d:"",                                 c:"*"},
+    {id:"c_bat", n:"Bateria / compartimento",  d:"",                                 c:"*"},
+    {id:"c_caps",n:"Capas dos analógicos",     d:"Desgaste, folga",                  c:"*"}
+  ]};
+
+  var NOMES={
+    ps3fat:"PlayStation 3 Fat", ps3slim:"PlayStation 3 Slim", ps3ss:"PlayStation 3 Super Slim",
+    ps4fat:"PlayStation 4 Fat", ps4slim:"PlayStation 4 Slim", ps4pro:"PlayStation 4 Pro",
+    ps5:"PlayStation 5", ps5d:"PlayStation 5 Digital",
+    ps5s:"PlayStation 5 Slim", ps5sd:"PlayStation 5 Slim Digital",
+    x360fat:"Xbox 360 Fat", x360slim:"Xbox 360 Slim / E",
+    xonefat:"Xbox One Fat", xones:"Xbox One S", xonex:"Xbox One X",
+    xss:"Xbox Series S", xsx:"Xbox Series X"
   };
 
-  var estado = {};   // id -> {v:"ok"|"def"|"na", nota:""}
-  var visiveis = [];
+  /* ---------- estado ---------- */
+  var estado={}, visiveis=[], idAtual=null, carregando=false;
+  var $=function(s){return document.querySelector(s);};
+  var tipo=$("#tipo"), lista=$("#lista"), lamp=$("#lamp"), fill=$("#fill"), sub=$("#sub"),
+      gen=$("#gen"), fstat=$("#fstat"), out=$("#out"), txt=$("#txt"),
+      ctrl=$("#ctrl"), eletr=$("#eletr"), nav=$("#nav"),
+      vChk=$("#vChk"), vHist=$("#vHist"), cards=$("#cards"), busca=$("#busca");
 
-  var $ = function(s){ return document.querySelector(s); };
-  var tipo=$("#tipo"), lista=$("#lista"), lamp=$("#lamp"), fill=$("#fill"),
-      sub=$("#sub"), gen=$("#gen"), fstat=$("#fstat"), out=$("#out"),
-      txt=$("#txt"), ctrl=$("#ctrl"), hint=$("#hint");
+  /* ---------- armazenamento ---------- */
+  function ler(){
+    try{ return JSON.parse(localStorage.getItem(CHAVE)) || []; }
+    catch(e){ return []; }
+  }
+  function gravar(arr){
+    try{ localStorage.setItem(CHAVE, JSON.stringify(arr)); return true; }
+    catch(e){ return false; }
+  }
+  function temConteudo(){
+    if(!tipo.value) return false;
+    if($("#os").value.trim() || $("#cli").value.trim()) return true;
+    return visiveis.some(function(i){ return estado[i.id].v; });
+  }
+  function salvar(){
+    if(carregando || !temConteudo()) return;
+    var arr = ler();
+    if(!idAtual) idAtual = "c" + Date.now() + Math.floor(Math.random()*900+100);
+    var reg = {
+      id:idAtual, tipo:tipo.value,
+      os:$("#os").value.trim(), cli:$("#cli").value.trim(), tel:$("#tel").value.trim(),
+      rel:$("#rel").value.trim(), ace:$("#ace").value.trim(),
+      eletr:eletr.checked, ctrl:ctrl.checked,
+      estado:{}, alterado:Date.now()
+    };
+    visiveis.forEach(function(i){
+      var e=estado[i.id];
+      if(e.v || e.nota || e.val) reg.estado[i.id]={v:e.v,nota:e.nota,val:e.val};
+    });
+    var ix = arr.findIndex(function(r){ return r.id===idAtual; });
+    if(ix>-1){ reg.criado = arr[ix].criado; arr[ix]=reg; }
+    else { reg.criado = Date.now(); arr.unshift(reg); }
+    gravar(arr);
+  }
 
   function aplica(c,t){ return c==="*" || c.split(",").indexOf(t)>-1; }
 
   function montar(){
-    var t = tipo.value;
-    lista.innerHTML = "";
-    estado = {};
-    visiveis = [];
+    var t=tipo.value;
+    lista.innerHTML=""; estado={}; visiveis=[];
     out.classList.remove("show");
+    if(!t){ sub.textContent="Selecione o equipamento"; $("#hint").style.display="none"; atualiza(); return; }
+    sub.textContent=NOMES[t];
+    $("#hint").style.display="block";
 
-    if(!t){
-      sub.textContent = "Selecione o equipamento";
-      hint.style.display = "none";
-      atualiza();
-      return;
-    }
-
-    sub.textContent = NOMES[t];
-    hint.style.display = "block";
-
-    var grupos = GRUPOS.slice();
-    if(ctrl.checked) grupos.push(CTRL);
+    var grupos=GRUPOS.slice();
+    if(eletr.checked) grupos.splice(2,0,ELETRICO);
+    if(ctrl.checked)  grupos.push(CTRLG);
 
     grupos.forEach(function(g){
-      var itens = g.itens.filter(function(i){ return aplica(i.c,t); });
+      var itens=g.itens.filter(function(i){ return aplica(i.c,t); });
       if(!itens.length) return;
+      var isC = g.tipo==="const";
 
-      var box = document.createElement("section");
-      box.className = "group";
-
-      var h = document.createElement("div");
-      h.className = "ghead";
-      h.innerHTML = '<h2>'+g.nome+'</h2><span class="gcount">'+itens.length+'</span>';
-      box.appendChild(h);
+      var box=document.createElement("section");
+      box.className="group"+(isC?" const":"");
+      box.innerHTML='<div class="ghead"><h2>'+g.nome+'</h2>'+
+        (g.sub?'<span class="gsub">'+g.sub+'</span>':'')+
+        '<span class="gcount">'+itens.length+'</span></div>';
 
       itens.forEach(function(i){
+        i.const=isC;
         visiveis.push(i);
-        estado[i.id] = {v:null, nota:"", val:""};
+        estado[i.id]={v:null,nota:"",val:""};
 
-        var row = document.createElement("div");
-        row.className = "item";
-        row.innerHTML =
+        var row=document.createElement("div");
+        row.className="item";
+        row.innerHTML=
           '<span class="dot" id="d_'+i.id+'"></span>'+
           '<span class="iname">'+i.n+(i.d?'<small>'+i.d+'</small>':'')+'</span>'+
-          '<span class="btns">'+
-            '<button data-i="'+i.id+'" data-v="ok">OK</button>'+
-            '<button data-i="'+i.id+'" data-v="def">DEF</button>'+
-            '<button data-i="'+i.id+'" data-v="blq" title="Não deu para testar">BLQ</button>'+
-            '<button data-i="'+i.id+'" data-v="na" title="Não se aplica">N/A</button>'+
-          '</span>';
+          '<span class="btns">'+(isC
+            ? '<button data-i="'+i.id+'" data-v="ok">NÃO</button>'+
+              '<button data-i="'+i.id+'" data-v="def">SIM</button>'
+            : '<button data-i="'+i.id+'" data-v="ok">OK</button>'+
+              '<button data-i="'+i.id+'" data-v="def">DEF</button>'+
+              '<button data-i="'+i.id+'" data-v="blq" title="Não deu para testar">BLQ</button>'
+          )+'</span>';
         box.appendChild(row);
 
         if(i.val){
-          var vl = document.createElement("div");
-          vl.className = "note val";
-          vl.id = "v_"+i.id;
-          vl.innerHTML = '<input type="text" data-val="'+i.id+'" placeholder="'+i.val+'">';
+          var vl=document.createElement("div");
+          vl.className="note val"; vl.id="v_"+i.id;
+          vl.innerHTML='<input type="text" data-val="'+i.id+'" placeholder="'+i.val+'">';
           box.appendChild(vl);
         }
-
-        var nt = document.createElement("div");
-        nt.className = "note";
-        nt.id = "n_"+i.id;
-        nt.innerHTML = '<input type="text" data-n="'+i.id+'" placeholder="O que encontrou? (entra no resumo)">';
+        var nt=document.createElement("div");
+        nt.className="note"; nt.id="n_"+i.id;
+        nt.innerHTML='<input type="text" data-n="'+i.id+'" placeholder="'+
+          (isC?"Descreva o que encontrou":"O que encontrou? (entra no resumo)")+'">';
         box.appendChild(nt);
       });
-
       lista.appendChild(box);
     });
-
     atualiza();
   }
 
-  lista.addEventListener("click", function(e){
-    var b = e.target.closest("button[data-i]");
-    if(!b) return;
-    var id = b.dataset.i, v = b.dataset.v;
-
-    estado[id].v = (estado[id].v === v) ? null : v;
-
-    b.parentNode.querySelectorAll("button").forEach(function(x){
-      x.classList.toggle("on", x.dataset.v === estado[id].v);
+  function pinta(id){
+    var e=estado[id];
+    var wrap=$("#d_"+id).parentNode.querySelector(".btns");
+    if(wrap) wrap.querySelectorAll("button").forEach(function(x){
+      x.classList.toggle("on", x.dataset.v===e.v);
     });
-
-    var dot = $("#d_"+id);
-    dot.className = "dot" + (estado[id].v ? " "+estado[id].v : "");
-
-    var nt = $("#n_"+id);
-    nt.classList.toggle("show", estado[id].v === "def");
-    if(estado[id].v !== "def"){
-      estado[id].nota = "";
-      nt.querySelector("input").value = "";
+    $("#d_"+id).className="dot"+(e.v?" "+e.v:"");
+    var nt=$("#n_"+id);
+    if(nt){
+      nt.classList.toggle("show", e.v==="def");
+      nt.querySelector("input").value = e.nota||"";
     }
-
-    var vl = $("#v_"+id);
+    var vl=$("#v_"+id);
     if(vl){
-      var mostra = (estado[id].v === "ok" || estado[id].v === "def");
-      vl.classList.toggle("show", mostra);
-      if(!mostra){
-        estado[id].val = "";
-        vl.querySelector("input").value = "";
-      }
+      var m=(e.v==="ok"||e.v==="def");
+      vl.classList.toggle("show", m);
+      vl.querySelector("input").value = e.val||"";
     }
+  }
 
-    atualiza();
+  lista.addEventListener("click",function(e){
+    var b=e.target.closest("button[data-i]"); if(!b) return;
+    var id=b.dataset.i, v=b.dataset.v;
+    estado[id].v=(estado[id].v===v)?null:v;
+    if(estado[id].v!=="def") estado[id].nota="";
+    if(estado[id].v!=="ok" && estado[id].v!=="def") estado[id].val="";
+    pinta(id); atualiza(); salvar();
   });
-
-  lista.addEventListener("input", function(e){
-    var f = e.target.closest("input[data-n]");
-    if(f) estado[f.dataset.n].nota = f.value.trim();
-    var g = e.target.closest("input[data-val]");
-    if(g) estado[g.dataset.val].val = g.value.trim();
+  lista.addEventListener("input",function(e){
+    var f=e.target.closest("input[data-n]");   if(f) estado[f.dataset.n].nota=f.value.trim();
+    var g=e.target.closest("input[data-val]"); if(g) estado[g.dataset.val].val=g.value.trim();
+    salvar();
+  });
+  ["#os","#cli","#tel","#rel","#ace"].forEach(function(s){
+    $(s).addEventListener("input", salvar);
   });
 
   function atualiza(){
-    var tot = visiveis.length;
-    var feitos = visiveis.filter(function(i){ return estado[i.id].v; }).length;
-    var falta = tot - feitos;
-
-    lamp.textContent = tot ? feitos+" / "+tot : "— / —";
-    lamp.className = "lamp " + (tot && !falta ? "done" : "pend");
-
-    fill.style.width = tot ? (feitos/tot*100)+"%" : "0";
-    fill.classList.toggle("done", !!tot && !falta);
-
-    gen.disabled = !tot || !!falta;
-    fstat.classList.toggle("ready", !!tot && !falta);
-
-    var blq = visiveis.filter(function(i){ return estado[i.id].v==="blq"; }).length;
-    if(!tot)       fstat.textContent = "Selecione o equipamento para começar";
-    else if(falta) fstat.innerHTML = "Faltam <b>"+falta+"</b> "+(falta===1?"item":"itens");
-    else if(blq)   fstat.innerHTML = "<b>"+blq+"</b> "+(blq===1?"ponto bloqueado":"pontos bloqueados")+" — retestar após reparo";
-    else           fstat.innerHTML = "<b>Tudo verificado</b>";
+    var tot=visiveis.length;
+    var feitos=visiveis.filter(function(i){return estado[i.id].v;}).length;
+    var falta=tot-feitos;
+    var blq=visiveis.filter(function(i){return estado[i.id].v==="blq";}).length;
+    lamp.textContent=tot?feitos+" / "+tot:"— / —";
+    lamp.className="lamp "+(tot&&!falta?"done":"pend");
+    fill.style.width=tot?(feitos/tot*100)+"%":"0";
+    fill.classList.toggle("done",!!tot&&!falta);
+    gen.disabled=!tot||!!falta;
+    fstat.classList.toggle("ready",!!tot&&!falta);
+    if(!tot)       fstat.textContent="Selecione o equipamento para começar";
+    else if(falta) fstat.innerHTML="Faltam <b>"+falta+"</b> "+(falta===1?"item":"itens");
+    else if(blq)   fstat.innerHTML="<b>"+blq+"</b> "+(blq===1?"ponto bloqueado":"pontos bloqueados")+" — retestar após reparo";
+    else           fstat.innerHTML="<b>Tudo verificado</b>";
   }
 
   function gerar(){
-    var t = tipo.value;
-    var L = [];
-    L.push("CHECKLIST DE BANCADA — " + NOMES[t]);
-    if($("#os").value.trim()) L.push("OS: " + $("#os").value.trim());
-    if($("#cli").value.trim()) L.push("Cliente: " + $("#cli").value.trim());
-    L.push("Data: " + new Date().toLocaleDateString("pt-BR"));
+    var t=tipo.value,L=[];
+    L.push("CHECKLIST DE BANCADA — "+NOMES[t]);
+    if($("#os").value.trim())  L.push("OS: "+$("#os").value.trim());
+    if($("#cli").value.trim()) L.push("Cliente: "+$("#cli").value.trim());
+    if($("#tel").value.trim()) L.push("Telefone: "+$("#tel").value.trim());
+    L.push("Data: "+new Date().toLocaleDateString("pt-BR"));
+    if($("#ace").value.trim()) L.push("Acessórios: "+$("#ace").value.trim());
     L.push("");
-
-    var rel = $("#rel").value.trim();
+    var rel=$("#rel").value.trim();
     if(rel){
       L.push("DEFEITO RELATADO");
-      rel.split("\n").forEach(function(x){ if(x.trim()) L.push("  " + x.trim()); });
+      rel.split("\n").forEach(function(x){ if(x.trim()) L.push("  "+x.trim()); });
       L.push("");
     }
+    var ach=visiveis.filter(function(i){return estado[i.id].v==="def" &&  i.const;});
+    var def=visiveis.filter(function(i){return estado[i.id].v==="def" && !i.const;});
+    var ok =visiveis.filter(function(i){return estado[i.id].v==="ok"  && !i.const;});
+    var blq=visiveis.filter(function(i){return estado[i.id].v==="blq";});
 
-    var def = visiveis.filter(function(i){ return estado[i.id].v==="def"; });
-    var ok  = visiveis.filter(function(i){ return estado[i.id].v==="ok";  });
-    var blq = visiveis.filter(function(i){ return estado[i.id].v==="blq"; });
-    var na  = visiveis.filter(function(i){ return estado[i.id].v==="na";  });
-
+    if(ach.length){
+      L.push("CONSTATADO NA INSPEÇÃO ("+ach.length+")");
+      ach.forEach(function(i){ L.push("  - "+i.n+(estado[i.id].nota?": "+estado[i.id].nota:"")); });
+      L.push("");
+    }
     if(def.length){
-      L.push("DEFEITOS ENCONTRADOS (" + def.length + ")");
+      L.push("DEFEITOS ENCONTRADOS ("+def.length+")");
       def.forEach(function(i){
-        var e1 = estado[i.id], ex = [];
-        if(e1.val)  ex.push(e1.val);
-        if(e1.nota) ex.push(e1.nota);
-        L.push("  - " + i.n + (ex.length ? ": " + ex.join(" — ") : ""));
+        var e=estado[i.id],ex=[];
+        if(e.val) ex.push(e.val);
+        if(e.nota) ex.push(e.nota);
+        L.push("  - "+i.n+(ex.length?": "+ex.join(" — "):""));
       });
-      L.push("");
-    } else {
-      L.push("DEFEITOS ENCONTRADOS: nenhum");
-      L.push("");
-    }
-
-    L.push("TESTADO E OK (" + ok.length + ")");
-    L.push("  " + (ok.length ? ok.map(function(i){
-      return i.n + (estado[i.id].val ? " (" + estado[i.id].val + ")" : "");
-    }).join(" | ") : "—"));
-
+    } else L.push("DEFEITOS ENCONTRADOS: nenhum");
+    L.push("");
+    L.push("TESTADO E OK ("+ok.length+")");
+    L.push("  "+(ok.length?ok.map(function(i){
+      return i.n+(estado[i.id].val?" ("+estado[i.id].val+")":"");
+    }).join(" | "):"—"));
     if(blq.length){
       L.push("");
-      L.push("*** NAO FOI POSSIVEL TESTAR (" + blq.length + ") ***");
-      L.push("  " + blq.map(function(i){return i.n;}).join(" | "));
+      L.push("*** NAO FOI POSSIVEL TESTAR ("+blq.length+") ***");
+      L.push("  "+blq.map(function(i){return i.n;}).join(" | "));
       L.push("");
       L.push("  >> RETESTAR TODOS ESSES PONTOS APOS O REPARO.");
-      L.push("  >> Pode haver defeito empilhado escondido atras do defeito principal.");
+      L.push("  >> Pode haver defeito empilhado atras do defeito principal.");
     }
-
-    if(na.length){
-      L.push("");
-      L.push("NÃO SE APLICA (" + na.length + ")");
-      L.push("  " + na.map(function(i){return i.n;}).join(" | "));
-    }
-
     L.push("");
-    L.push("— verificados " + visiveis.length + " pontos —");
-
-    txt.value = L.join("\n");
+    L.push("— verificados "+visiveis.length+" pontos —");
+    txt.value=L.join("\n");
     out.classList.add("show");
-    out.scrollIntoView({behavior:"smooth", block:"start"});
+    salvar();
+    out.scrollIntoView({behavior:"smooth",block:"start"});
   }
 
-  tipo.addEventListener("change", montar);
-  ctrl.addEventListener("change", montar);
-  gen.addEventListener("click", gerar);
-
-  $("#cp").addEventListener("click", function(){
-    txt.select();
-    txt.setSelectionRange(0, 999999);
-    var b = this, orig = b.textContent;
-    try{
-      document.execCommand("copy");
-      b.textContent = "Copiado";
-    }catch(e){
-      b.textContent = "Selecione e copie";
+  /* ---------- histórico ---------- */
+  function resumoReg(r){
+    var d=0,b=0,o=0,a=0;
+    for(var k in r.estado){
+      var v=r.estado[k].v;
+      if(v==="def") d++; else if(v==="blq") b++; else if(v==="ok") o++;
+      a++;
     }
-    setTimeout(function(){ b.textContent = orig; }, 1600);
+    return {d:d,b:b,o:o,a:a};
+  }
+  function dataBr(ms){
+    var x=new Date(ms);
+    return ("0"+x.getDate()).slice(-2)+"/"+("0"+(x.getMonth()+1)).slice(-2)+"/"+x.getFullYear();
+  }
+  function pintaHist(){
+    var arr=ler();
+    var q=busca.value.trim().toLowerCase();
+    if(q) arr=arr.filter(function(r){
+      return (r.os+" "+r.cli+" "+(NOMES[r.tipo]||"")).toLowerCase().indexOf(q)>-1;
+    });
+    arr.sort(function(a,b){ return b.alterado-a.alterado; });
+
+    if(!arr.length){
+      cards.innerHTML='<div class="vazio">'+(q?"Nada encontrado para essa busca."
+        :"Nenhum checklist salvo ainda.<br>Os checklists são salvos automaticamente conforme você preenche.")+'</div>';
+      return;
+    }
+    cards.innerHTML="";
+    arr.forEach(function(r){
+      var s=resumoReg(r);
+      var el=document.createElement("div");
+      el.className="card";
+      var bd="";
+      if(s.d) bd+='<span class="bdg d">'+s.d+' defeito'+(s.d>1?"s":"")+'</span>';
+      if(s.b) bd+='<span class="bdg b">'+s.b+' bloqueado'+(s.b>1?"s":"")+'</span>';
+      if(!s.d && !s.b && s.o) bd+='<span class="bdg o">sem defeito</span>';
+      if(!s.a) bd+='<span class="bdg p">em branco</span>';
+      el.innerHTML=
+        '<div class="ctop">'+
+          (r.os?'<span class="cos">OS '+r.os+'</span>':'<span class="cos">sem OS</span>')+
+          '<span class="cmod">'+(NOMES[r.tipo]||r.tipo)+'</span>'+
+          '<span class="cdat">'+dataBr(r.alterado)+'</span>'+
+        '</div>'+
+        (r.cli?'<div class="ccli">'+r.cli+'</div>':'')+
+        '<div class="cbadges">'+bd+'</div>'+
+        '<div class="cact">'+
+          '<button data-ab="'+r.id+'">Abrir</button>'+
+          '<button class="del" data-ex="'+r.id+'">Excluir</button>'+
+        '</div>';
+      cards.appendChild(el);
+    });
+  }
+  cards.addEventListener("click",function(e){
+    var a=e.target.closest("button[data-ab]");
+    if(a){ abrir(a.dataset.ab); return; }
+    var x=e.target.closest("button[data-ex]");
+    if(x){
+      if(!confirm("Excluir este checklist?")) return;
+      gravar(ler().filter(function(r){ return r.id!==x.dataset.ex; }));
+      if(idAtual===x.dataset.ex) idAtual=null;
+      pintaHist();
+    }
+  });
+  busca.addEventListener("input",pintaHist);
+
+  function abrir(id){
+    var r=ler().filter(function(x){ return x.id===id; })[0];
+    if(!r) return;
+    carregando=true;
+    idAtual=r.id;
+    tipo.value=r.tipo;
+    eletr.checked=!!r.eletr;
+    ctrl.checked=!!r.ctrl;
+    montar();
+    $("#os").value=r.os||""; $("#cli").value=r.cli||""; $("#tel").value=r.tel||"";
+    $("#rel").value=r.rel||""; $("#ace").value=r.ace||"";
+    visiveis.forEach(function(i){
+      var g=r.estado[i.id];
+      if(g){ estado[i.id]={v:g.v||null,nota:g.nota||"",val:g.val||""}; pinta(i.id); }
+    });
+    carregando=false;
+    atualiza();
+    verChk();
+    window.scrollTo({top:0});
+  }
+
+  function verChk(){
+    vChk.classList.add("on"); vHist.classList.remove("on");
+    nav.textContent="Histórico";
+    $("#titulo").textContent="Checklist de Bancada";
+    document.querySelector("footer").style.display="";
+    sub.textContent = tipo.value ? NOMES[tipo.value] : "Selecione o equipamento";
+  }
+  function verHist(){
+    vHist.classList.add("on"); vChk.classList.remove("on");
+    nav.textContent="Voltar";
+    $("#titulo").textContent="Histórico";
+    sub.textContent = ler().length + " checklist" + (ler().length===1?"":"s") + " salvo" + (ler().length===1?"":"s");
+    document.querySelector("footer").style.display="none";
+    pintaHist();
+    window.scrollTo({top:0});
+  }
+  nav.addEventListener("click",function(){
+    if(vHist.classList.contains("on")) verChk(); else verHist();
   });
 
-  $("#rs").addEventListener("click", function(){
-    if(!confirm("Limpar todas as marcações?")) return;
-    $("#os").value = "";
-    $("#cli").value = "";
-    $("#rel").value = "";
+  /* ---------- backup ---------- */
+  $("#bkp").addEventListener("click",function(){
+    var opc = prompt("Digite:\n1 = baixar backup de todos os checklists\n2 = restaurar backup de um arquivo");
+    if(opc==="1"){
+      var blob=new Blob([JSON.stringify(ler(),null,2)],{type:"application/json"});
+      var a=document.createElement("a");
+      a.href=URL.createObjectURL(blob);
+      a.download="checklists-backup-"+new Date().toISOString().slice(0,10)+".json";
+      a.click();
+      setTimeout(function(){ URL.revokeObjectURL(a.href); },2000);
+    } else if(opc==="2"){
+      var inp=document.createElement("input");
+      inp.type="file"; inp.accept=".json,application/json";
+      inp.onchange=function(){
+        var f=inp.files[0]; if(!f) return;
+        var fr=new FileReader();
+        fr.onload=function(){
+          try{
+            var novos=JSON.parse(fr.result);
+            if(!Array.isArray(novos)) throw 0;
+            var atual=ler(), ids={};
+            atual.forEach(function(r){ ids[r.id]=1; });
+            var add=0;
+            novos.forEach(function(r){ if(r && r.id && !ids[r.id]){ atual.push(r); add++; } });
+            gravar(atual); pintaHist();
+            alert(add+" checklist(s) restaurado(s).");
+          }catch(e){ alert("Arquivo inválido."); }
+        };
+        fr.readAsText(f);
+      };
+      inp.click();
+    }
+  });
+
+  /* ---------- ações ---------- */
+  tipo.addEventListener("change",function(){ montar(); salvar(); });
+  ctrl.addEventListener("change",function(){ montar(); salvar(); });
+  eletr.addEventListener("change",function(){ montar(); salvar(); });
+  gen.addEventListener("click",gerar);
+
+  $("#cp").addEventListener("click",function(){
+    txt.select(); txt.setSelectionRange(0,999999);
+    var b=this,o=b.textContent;
+    try{ document.execCommand("copy"); b.textContent="Copiado"; }
+    catch(e){ b.textContent="Selecione e copie"; }
+    setTimeout(function(){ b.textContent=o; },1600);
+  });
+
+  $("#novo").addEventListener("click",function(){
+    idAtual=null;
+    carregando=true;
+    ["#os","#cli","#tel","#rel","#ace"].forEach(function(s){ $(s).value=""; });
+    tipo.value=""; eletr.checked=false; ctrl.checked=false;
     montar();
-    window.scrollTo({top:0, behavior:"smooth"});
+    carregando=false;
+    window.scrollTo({top:0,behavior:"smooth"});
   });
 
   atualiza();
