@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Checklist de Bancada — Eletrônica Cavanhol Games</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0E1216">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Checklist">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<style>
+  :root{
+    --bg:#0E1216;
+    --surface:#171D24;
+    --raised:#1F262F;
+    --line:#2A333D;
+    --line-soft:#212932;
+    --txt:#E6EDF3;
+    --dim:#8B98A5;
+    --faint:#5B6673;
+    --ok:#3FB950;
+    --def:#F85149;
+    --na:#6E7681;
+    --wait:#D29922;
+    --info:#58A6FF;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);color:var(--txt);font-family:var(--sans);
+    font-size:16px;line-height:1.45;padding-bottom:96px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- painel superior ---------- */
+  header{
+    position:sticky;top:0;z-index:40;
+    background:linear-gradient(180deg,#141A21 0%,#11161C 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .bar{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 16px 10px;max-width:760px;margin:0 auto;
+  }
+  .brand{flex:1;min-width:0}
+  .brand h1{
+    margin:0;font-size:13px;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--txt);
+  }
+  .brand p{
+    margin:2px 0 0;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--faint);font-family:var(--mono);
+  }
+  .lamp{
+    font-family:var(--mono);font-size:11px;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;
+    padding:7px 11px;border-radius:3px;white-space:nowrap;
+    border:1px solid;
+  }
+  .lamp.pend{color:var(--wait);border-color:#4A3A10;background:#241D0A}
+  .lamp.done{color:var(--ok);border-color:#1B4426;background:#0D2413}
+
+  .track{height:2px;background:var(--line-soft)}
+  .fill{height:100%;width:0;background:var(--wait);transition:width .25s ease,background .25s ease}
+  .fill.done{background:var(--ok)}
+
+  /* ---------- conteúdo ---------- */
+  main{max-width:760px;margin:0 auto;padding:0 16px}
+
+  .setup{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:6px;padding:14px;margin:16px 0;
+  }
+  .lbl{
+    display:block;font-family:var(--mono);font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
+    margin-bottom:7px;
+  }
+  #rel{
+    width:100%;background:var(--bg);color:var(--txt);
+    border:1px solid var(--line);border-radius:4px;
+    padding:11px 12px;font-size:15px;font-family:var(--sans);
+    line-height:1.4;resize:vertical;
+  }
+  #rel::placeholder{color:var(--faint)}
+  select,input[type=text]{
+    width:100%;background:var(--bg);color:var(--txt);
+    border:1px solid var(--line);border-radius:4px;
+    padding:11px 12px;font-size:15px;font-family:var(--sans);
+  }
+  select:focus,input:focus,textarea:focus{outline:2px solid var(--info);outline-offset:1px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+
+  .toggle{
+    display:flex;align-items:center;gap:10px;margin-top:14px;
+    padding-top:13px;border-top:1px solid var(--line-soft);
+    cursor:pointer;user-select:none;
+  }
+  .toggle input{width:19px;height:19px;accent-color:var(--info);flex:none}
+  .toggle span{font-size:14px;color:var(--dim)}
+
+  /* ---------- grupos ---------- */
+  .group{margin:22px 0 0}
+  .ghead{
+    display:flex;align-items:baseline;gap:9px;
+    padding:0 2px 8px;border-bottom:1px solid var(--line);
+  }
+  .ghead h2{
+    margin:0;font-size:12px;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--txt);
+  }
+  .gcount{font-family:var(--mono);font-size:11px;color:var(--faint);margin-left:auto}
+
+  .item{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 2px;border-bottom:1px solid var(--line-soft);
+  }
+  .dot{
+    width:9px;height:9px;border-radius:50%;flex:none;
+    background:transparent;border:1.5px solid #3A444F;
+    transition:all .15s ease;
+  }
+  .dot.ok{background:var(--ok);border-color:var(--ok);box-shadow:0 0 7px rgba(63,185,80,.45)}
+  .dot.def{background:var(--def);border-color:var(--def);box-shadow:0 0 7px rgba(248,81,73,.45)}
+  .dot.blq{background:var(--wait);border-color:var(--wait);box-shadow:0 0 7px rgba(210,153,34,.4)}
+  .dot.na{background:var(--na);border-color:var(--na);box-shadow:none}
+
+  .iname{flex:1;min-width:0;font-size:15px}
+  .iname small{display:block;font-size:12px;color:var(--faint);margin-top:1px}
+
+  .btns{display:flex;gap:5px;flex:none}
+  .btns button{
+    font-family:var(--mono);font-size:11px;font-weight:700;
+    letter-spacing:.04em;padding:9px 0;width:38px;
+    background:var(--raised);color:var(--dim);
+    border:1px solid var(--line);border-radius:4px;cursor:pointer;
+    transition:all .12s ease;
+  }
+  .btns button:active{transform:scale(.94)}
+  .btns button[data-v=ok].on{background:#0D2413;border-color:var(--ok);color:var(--ok)}
+  .btns button[data-v=def].on{background:#2A0E0C;border-color:var(--def);color:var(--def)}
+  .btns button[data-v=blq].on{background:#2A1E06;border-color:var(--wait);color:var(--wait)}
+  .btns button[data-v=na].on{background:#22272D;border-color:var(--na);color:#9AA5B1}
+
+  .note{
+    margin:0 0 12px 21px;display:none;
+  }
+  .note.show{display:block}
+  .note input{
+    background:#1A0F0E;border-color:#4A211E;font-size:14px;padding:9px 11px;
+  }
+  .note input::placeholder{color:#7A5A57}
+  .note.val input{background:#0C1620;border-color:#1F3A52}
+  .note.val input::placeholder{color:#5C7A96}
+
+  /* ---------- rodapé ---------- */
+  footer{
+    position:fixed;left:0;right:0;bottom:0;z-index:40;
+    background:#11161C;border-top:1px solid var(--line);
+    padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  }
+  .fwrap{max-width:760px;margin:0 auto;display:flex;gap:10px;align-items:center}
+  .fstat{flex:1;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.05em}
+  .fstat b{color:var(--wait)}
+  .fstat.ready b{color:var(--ok)}
+  .gen{
+    background:var(--info);color:#04121F;border:none;border-radius:5px;
+    padding:13px 20px;font-size:14px;font-weight:700;cursor:pointer;
+    font-family:var(--sans);white-space:nowrap;
+  }
+  .gen:disabled{background:var(--raised);color:var(--faint);cursor:not-allowed}
+  .gen:active:not(:disabled){transform:scale(.97)}
+
+  /* ---------- saída ---------- */
+  .out{margin:26px 0 8px;display:none}
+  .out.show{display:block}
+  .out textarea{
+    width:100%;min-height:300px;background:var(--surface);color:var(--txt);
+    border:1px solid var(--line);border-radius:6px;padding:14px;
+    font-family:var(--mono);font-size:12.5px;line-height:1.65;resize:vertical;
+  }
+  .oact{display:flex;gap:9px;margin-top:10px}
+  .oact button{
+    flex:1;padding:12px;border-radius:5px;font-size:13.5px;font-weight:600;
+    cursor:pointer;font-family:var(--sans);
+    background:var(--raised);color:var(--txt);border:1px solid var(--line);
+  }
+  .oact button.pri{background:var(--ok);color:#04140A;border-color:var(--ok)}
+
+  .hint{
+    font-size:12.5px;color:var(--faint);line-height:1.5;
+    padding:14px;background:var(--surface);border:1px solid var(--line-soft);
+    border-radius:6px;margin:18px 0 26px;
+  }
+  .hint b{color:var(--dim)}
+
+  @media (max-width:420px){
+    .row2{grid-template-columns:1fr}
+    .btns button{width:41px}
+    .iname{font-size:14.5px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <div class="brand">
+      <h1>Checklist de Bancada</h1>
+      <p id="sub">Selecione o equipamento</p>
+    </div>
+    <div class="lamp pend" id="lamp">— / —</div>
+  </div>
+  <div class="track"><div class="fill" id="fill"></div></div>
+</header>
+
+<main>
+  <div class="setup">
+    <label class="lbl" for="tipo">Equipamento</label>
+    <select id="tipo">
+      <option value="">Selecione…</option>
+      <option value="ps3">PlayStation 3 (Fat / Slim / Super Slim)</option>
+      <option value="ps4">PlayStation 4 (Fat / Slim)</option>
+      <option value="ps4pro">PlayStation 4 Pro</option>
+      <option value="ps5">PlayStation 5 (com leitor)</option>
+      <option value="ps5d">PlayStation 5 Digital</option>
+      <option value="x360">Xbox 360</option>
+      <option value="xone">Xbox One / One S / One X</option>
+      <option value="xsx">Xbox Series X</option>
+      <option value="xss">Xbox Series S</option>
+    </select>
+
+    <div class="row2">
+      <div>
+        <label class="lbl" for="os">Ordem de serviço</label>
+        <input type="text" id="os" placeholder="0733" inputmode="numeric">
+      </div>
+      <div>
+        <label class="lbl" for="cli">Cliente</label>
+        <input type="text" id="cli" placeholder="Nome">
+      </div>
+    </div>
+
+    <div style="margin-top:12px">
+      <label class="lbl" for="rel">Defeito relatado / motivo da entrada</label>
+      <textarea id="rel" rows="2" placeholder="O que o cliente relatou, ou o que você observou na recepção"></textarea>
+    </div>
+
+    <label class="toggle">
+      <input type="checkbox" id="ctrl">
+      <span>Vieram controles junto</span>
+    </label>
+  </div>
+
+  <div id="lista"></div>
+
+  <div class="hint" id="hint">
+    <b>OK</b> testado e funcionando &middot; <b>DEF</b> testado, com defeito &middot;
+    <b>BLQ</b> não deu para testar agora (outro defeito impede) &middot;
+    <b>N/A</b> não se aplica a este aparelho.<br><br>
+    O resumo só é liberado quando todos os pontos tiverem resposta.
+    Marcando defeito, abre um campo para anotar o que encontrou.
+    Os pontos <b>BLQ</b> entram no resumo com aviso para retestar depois do reparo.
+  </div>
+
+  <div class="out" id="out">
+    <label class="lbl">Resumo — cole no rascunho do orçamento</label>
+    <textarea id="txt" readonly></textarea>
+    <div class="oact">
+      <button class="pri" id="cp">Copiar resumo</button>
+      <button id="rs">Limpar tudo</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="fwrap">
+    <div class="fstat" id="fstat">Selecione o equipamento para começar</div>
+    <button class="gen" id="gen" disabled>Gerar resumo</button>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- catálogo de testes -------------------------------------------------
+  // flag: consoles onde o item se aplica. "*" = todos.
+  var GRUPOS = [
+    { nome:"Energia e funcionamento", itens:[
+      {id:"liga",  n:"Liga",                     d:"Aciona pelo botão e pelo controle", c:"*"},
+      {id:"mant",  n:"Mantém ligado sob carga",  d:"Jogo pesado por período prolongado", c:"*"},
+      {id:"desl",  n:"Desliga e religa normal",  d:"Ciclo completo, sem travar",        c:"*"}
+    ]},
+    { nome:"Vídeo e áudio", itens:[
+      {id:"hdmi",  n:"Imagem pelo HDMI",         d:"",                                   c:"*"},
+      {id:"av",    n:"Imagem pela saída AV",     d:"Saída analógica",                    c:"ps3,x360"},
+      {id:"hdin",  n:"Entrada HDMI (passagem)",  d:"HDMI IN — quase sempre esquecido",   c:"xone"},
+      {id:"som",   n:"Áudio pelo HDMI",          d:"",                                   c:"*"},
+      {id:"opt",   n:"Saída óptica",             d:"",                                   c:"ps3,ps4,ps4pro,x360,xone"}
+    ]},
+    { nome:"Armazenamento", itens:[
+      {id:"reco",  n:"Reconhece o disco",        d:"",                                   c:"*"},
+      {id:"smart", n:"Saúde SMART",               d:"Testar FORA do console",             c:"*", val:"Saúde em % (ex.: 87%)"},
+      {id:"mseg",  n:"Sobe sem modo de segurança", d:"Sem pedir reinstalação",           c:"ps3,ps4,ps4pro,ps5,ps5d"}
+    ]},
+    { nome:"Leitor de discos", itens:[
+      {id:"puxa",  n:"Puxa a mídia",             d:"",                                   c:"ps3,ps4,ps4pro,ps5,x360,xone,xsx"},
+      {id:"le",    n:"Lê a mídia",               d:"Testar jogo e filme, se possível",   c:"ps3,ps4,ps4pro,ps5,x360,xone,xsx"},
+      {id:"ejeta", n:"Ejeta pelo botão",         d:"",                                   c:"ps3,ps4,ps4pro,ps5,x360,xone,xsx"}
+    ]},
+    { nome:"Refrigeração", itens:[
+      {id:"cool",  n:"Cooler gira",              d:"",                                   c:"*"},
+      {id:"ruid",  n:"Sem ruído anormal",        d:"Rolamento, raspagem, assobio",       c:"*"},
+      {id:"temp",  n:"Temperatura sob carga",    d:"Sem aquecimento anormal",            c:"*", val:"Temperatura máxima observada"}
+    ]},
+    { nome:"Conexões", itens:[
+      {id:"usb",   n:"Todas as portas USB",      d:"Testar UMA A UMA, frente e trás",    c:"*"},
+      {id:"wifi",  n:"Conecta no Wi-Fi",         d:"",                                   c:"*"},
+      {id:"rede",  n:"Conector de rede cabeada", d:"Cabo conectado, testar conexão",     c:"*"},
+      {id:"bt",    n:"Pareia controle sem fio",  d:"Testar também à distância",          c:"*"}
+    ]},
+    { nome:"Painel e carcaça", itens:[
+      {id:"bpow",  n:"Botão power",              d:"",                                   c:"*"},
+      {id:"leds",  n:"LEDs indicadores",         d:"",                                   c:"*"},
+      {id:"carc",  n:"Estado da carcaça",        d:"Riscos, trincas, parafusos faltando",c:"*"}
+    ]}
+  ];
+
+  var CTRL = { nome:"Controles", itens:[
+    {id:"c_ana", n:"Analógicos sem drift",   d:"Testar os dois eixos de cada um", c:"*"},
+    {id:"c_bot", n:"Todos os botões",        d:"Inclui L1/L2/R1/R2 e direcional", c:"*"},
+    {id:"c_usb", n:"Conector USB do controle",d:"Carrega e comunica",             c:"*"},
+    {id:"c_vib", n:"Vibração",               d:"",                                c:"*"},
+    {id:"c_bat", n:"Bateria / compartimento",d:"",                                c:"*"}
+  ]};
+
+  var NOMES = {
+    ps3:"PlayStation 3", ps4:"PlayStation 4", ps4pro:"PlayStation 4 Pro",
+    ps5:"PlayStation 5", ps5d:"PlayStation 5 Digital", x360:"Xbox 360",
+    xone:"Xbox One", xsx:"Xbox Series X", xss:"Xbox Series S"
+  };
+
+  var estado = {};   // id -> {v:"ok"|"def"|"na", nota:""}
+  var visiveis = [];
+
+  var $ = function(s){ return document.querySelector(s); };
+  var tipo=$("#tipo"), lista=$("#lista"), lamp=$("#lamp"), fill=$("#fill"),
+      sub=$("#sub"), gen=$("#gen"), fstat=$("#fstat"), out=$("#out"),
+      txt=$("#txt"), ctrl=$("#ctrl"), hint=$("#hint");
+
+  function aplica(c,t){ return c==="*" || c.split(",").indexOf(t)>-1; }
+
+  function montar(){
+    var t = tipo.value;
+    lista.innerHTML = "";
+    estado = {};
+    visiveis = [];
+    out.classList.remove("show");
+
+    if(!t){
+      sub.textContent = "Selecione o equipamento";
+      hint.style.display = "none";
+      atualiza();
+      return;
+    }
+
+    sub.textContent = NOMES[t];
+    hint.style.display = "block";
+
+    var grupos = GRUPOS.slice();
+    if(ctrl.checked) grupos.push(CTRL);
+
+    grupos.forEach(function(g){
+      var itens = g.itens.filter(function(i){ return aplica(i.c,t); });
+      if(!itens.length) return;
+
+      var box = document.createElement("section");
+      box.className = "group";
+
+      var h = document.createElement("div");
+      h.className = "ghead";
+      h.innerHTML = '<h2>'+g.nome+'</h2><span class="gcount">'+itens.length+'</span>';
+      box.appendChild(h);
+
+      itens.forEach(function(i){
+        visiveis.push(i);
+        estado[i.id] = {v:null, nota:"", val:""};
+
+        var row = document.createElement("div");
+        row.className = "item";
+        row.innerHTML =
+          '<span class="dot" id="d_'+i.id+'"></span>'+
+          '<span class="iname">'+i.n+(i.d?'<small>'+i.d+'</small>':'')+'</span>'+
+          '<span class="btns">'+
+            '<button data-i="'+i.id+'" data-v="ok">OK</button>'+
+            '<button data-i="'+i.id+'" data-v="def">DEF</button>'+
+            '<button data-i="'+i.id+'" data-v="blq" title="Não deu para testar">BLQ</button>'+
+            '<button data-i="'+i.id+'" data-v="na" title="Não se aplica">N/A</button>'+
+          '</span>';
+        box.appendChild(row);
+
+        if(i.val){
+          var vl = document.createElement("div");
+          vl.className = "note val";
+          vl.id = "v_"+i.id;
+          vl.innerHTML = '<input type="text" data-val="'+i.id+'" placeholder="'+i.val+'">';
+          box.appendChild(vl);
+        }
+
+        var nt = document.createElement("div");
+        nt.className = "note";
+        nt.id = "n_"+i.id;
+        nt.innerHTML = '<input type="text" data-n="'+i.id+'" placeholder="O que encontrou? (entra no resumo)">';
+        box.appendChild(nt);
+      });
+
+      lista.appendChild(box);
+    });
+
+    atualiza();
+  }
+
+  lista.addEventListener("click", function(e){
+    var b = e.target.closest("button[data-i]");
+    if(!b) return;
+    var id = b.dataset.i, v = b.dataset.v;
+
+    estado[id].v = (estado[id].v === v) ? null : v;
+
+    b.parentNode.querySelectorAll("button").forEach(function(x){
+      x.classList.toggle("on", x.dataset.v === estado[id].v);
+    });
+
+    var dot = $("#d_"+id);
+    dot.className = "dot" + (estado[id].v ? " "+estado[id].v : "");
+
+    var nt = $("#n_"+id);
+    nt.classList.toggle("show", estado[id].v === "def");
+    if(estado[id].v !== "def"){
+      estado[id].nota = "";
+      nt.querySelector("input").value = "";
+    }
+
+    var vl = $("#v_"+id);
+    if(vl){
+      var mostra = (estado[id].v === "ok" || estado[id].v === "def");
+      vl.classList.toggle("show", mostra);
+      if(!mostra){
+        estado[id].val = "";
+        vl.querySelector("input").value = "";
+      }
+    }
+
+    atualiza();
+  });
+
+  lista.addEventListener("input", function(e){
+    var f = e.target.closest("input[data-n]");
+    if(f) estado[f.dataset.n].nota = f.value.trim();
+    var g = e.target.closest("input[data-val]");
+    if(g) estado[g.dataset.val].val = g.value.trim();
+  });
+
+  function atualiza(){
+    var tot = visiveis.length;
+    var feitos = visiveis.filter(function(i){ return estado[i.id].v; }).length;
+    var falta = tot - feitos;
+
+    lamp.textContent = tot ? feitos+" / "+tot : "— / —";
+    lamp.className = "lamp " + (tot && !falta ? "done" : "pend");
+
+    fill.style.width = tot ? (feitos/tot*100)+"%" : "0";
+    fill.classList.toggle("done", !!tot && !falta);
+
+    gen.disabled = !tot || !!falta;
+    fstat.classList.toggle("ready", !!tot && !falta);
+
+    var blq = visiveis.filter(function(i){ return estado[i.id].v==="blq"; }).length;
+    if(!tot)       fstat.textContent = "Selecione o equipamento para começar";
+    else if(falta) fstat.innerHTML = "Faltam <b>"+falta+"</b> "+(falta===1?"item":"itens");
+    else if(blq)   fstat.innerHTML = "<b>"+blq+"</b> "+(blq===1?"ponto bloqueado":"pontos bloqueados")+" — retestar após reparo";
+    else           fstat.innerHTML = "<b>Tudo verificado</b>";
+  }
+
+  function gerar(){
+    var t = tipo.value;
+    var L = [];
+    L.push("CHECKLIST DE BANCADA — " + NOMES[t]);
+    if($("#os").value.trim()) L.push("OS: " + $("#os").value.trim());
+    if($("#cli").value.trim()) L.push("Cliente: " + $("#cli").value.trim());
+    L.push("Data: " + new Date().toLocaleDateString("pt-BR"));
+    L.push("");
+
+    var rel = $("#rel").value.trim();
+    if(rel){
+      L.push("DEFEITO RELATADO");
+      rel.split("\n").forEach(function(x){ if(x.trim()) L.push("  " + x.trim()); });
+      L.push("");
+    }
+
+    var def = visiveis.filter(function(i){ return estado[i.id].v==="def"; });
+    var ok  = visiveis.filter(function(i){ return estado[i.id].v==="ok";  });
+    var blq = visiveis.filter(function(i){ return estado[i.id].v==="blq"; });
+    var na  = visiveis.filter(function(i){ return estado[i.id].v==="na";  });
+
+    if(def.length){
+      L.push("DEFEITOS ENCONTRADOS (" + def.length + ")");
+      def.forEach(function(i){
+        var e1 = estado[i.id], ex = [];
+        if(e1.val)  ex.push(e1.val);
+        if(e1.nota) ex.push(e1.nota);
+        L.push("  - " + i.n + (ex.length ? ": " + ex.join(" — ") : ""));
+      });
+      L.push("");
+    } else {
+      L.push("DEFEITOS ENCONTRADOS: nenhum");
+      L.push("");
+    }
+
+    L.push("TESTADO E OK (" + ok.length + ")");
+    L.push("  " + (ok.length ? ok.map(function(i){
+      return i.n + (estado[i.id].val ? " (" + estado[i.id].val + ")" : "");
+    }).join(" | ") : "—"));
+
+    if(blq.length){
+      L.push("");
+      L.push("*** NAO FOI POSSIVEL TESTAR (" + blq.length + ") ***");
+      L.push("  " + blq.map(function(i){return i.n;}).join(" | "));
+      L.push("");
+      L.push("  >> RETESTAR TODOS ESSES PONTOS APOS O REPARO.");
+      L.push("  >> Pode haver defeito empilhado escondido atras do defeito principal.");
+    }
+
+    if(na.length){
+      L.push("");
+      L.push("NÃO SE APLICA (" + na.length + ")");
+      L.push("  " + na.map(function(i){return i.n;}).join(" | "));
+    }
+
+    L.push("");
+    L.push("— verificados " + visiveis.length + " pontos —");
+
+    txt.value = L.join("\n");
+    out.classList.add("show");
+    out.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+
+  tipo.addEventListener("change", montar);
+  ctrl.addEventListener("change", montar);
+  gen.addEventListener("click", gerar);
+
+  $("#cp").addEventListener("click", function(){
+    txt.select();
+    txt.setSelectionRange(0, 999999);
+    var b = this, orig = b.textContent;
+    try{
+      document.execCommand("copy");
+      b.textContent = "Copiado";
+    }catch(e){
+      b.textContent = "Selecione e copie";
+    }
+    setTimeout(function(){ b.textContent = orig; }, 1600);
+  });
+
+  $("#rs").addEventListener("click", function(){
+    if(!confirm("Limpar todas as marcações?")) return;
+    $("#os").value = "";
+    $("#cli").value = "";
+    $("#rel").value = "";
+    montar();
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+
+  atualiza();
+})();
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  });
+}
+</script>
+</body>
+</html>
