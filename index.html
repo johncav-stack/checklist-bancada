@@ -46,8 +46,7 @@
   .fill.done{background:var(--ok)}
 
   main{max-width:780px;margin:0 auto;padding:0 14px}
-  .view{display:none}
-  .view.on{display:block}
+  .view{display:none}.view.on{display:block}
 
   .setup{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;margin:16px 0}
   .lbl{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.13em;
@@ -58,16 +57,39 @@
   textarea{resize:vertical}
   ::placeholder{color:var(--faint)}
   select:focus,input:focus,textarea:focus{outline:2px solid var(--info);outline-offset:1px}
-  optgroup{color:var(--faint);font-style:normal}
-  option{color:var(--txt)}
+  optgroup{color:var(--faint);font-style:normal}option{color:var(--txt)}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
   .mt{margin-top:12px}
+
+  .sechead{display:flex;align-items:center;gap:8px;margin:16px 0 2px;
+    padding-top:14px;border-top:1px solid var(--soft)}
+  .sechead span{font-family:var(--mono);font-size:10px;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--faint)}
+  .sechead b{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--info);
+    border:1px solid #1F3A52;background:#0C1620;padding:3px 7px;border-radius:3px;font-weight:700}
 
   .toggle{display:flex;align-items:flex-start;gap:10px;margin-top:13px;padding-top:13px;
     border-top:1px solid var(--soft);cursor:pointer;user-select:none}
   .toggle input{width:19px;height:19px;accent-color:var(--info);flex:none;margin-top:1px}
   .toggle span{font-size:14px;color:var(--dim);line-height:1.35}
   .toggle small{display:block;color:var(--faint);font-size:12px;margin-top:2px}
+
+  /* fotos */
+  .fotos{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .foto{position:relative;width:72px;height:72px;border-radius:5px;overflow:hidden;
+    border:1px solid var(--line);background:var(--bg)}
+  .foto img{width:100%;height:100%;object-fit:cover;display:block;cursor:pointer}
+  .foto b{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.75);
+    color:var(--dim);font-size:9px;font-family:var(--mono);text-align:center;
+    padding:2px 0;font-weight:400;letter-spacing:.03em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .foto i{position:absolute;top:2px;right:2px;width:19px;height:19px;border-radius:50%;
+    background:rgba(0,0,0,.8);color:var(--def);font-style:normal;font-size:13px;
+    line-height:19px;text-align:center;cursor:pointer;font-weight:700}
+  .addf{width:72px;height:72px;border-radius:5px;border:1px dashed var(--line);
+    background:var(--bg);color:var(--faint);font-size:11px;font-family:var(--mono);
+    cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+  .addf b{font-size:19px;font-weight:400;line-height:1}
 
   .group{margin:22px 0 0}
   .ghead{display:flex;align-items:baseline;gap:9px;padding:0 2px 8px;border-bottom:1px solid var(--line)}
@@ -78,10 +100,9 @@
   .item{display:flex;align-items:center;gap:11px;padding:12px 2px;border-bottom:1px solid var(--soft)}
   .dot{width:9px;height:9px;border-radius:50%;flex:none;background:transparent;
     border:1.5px solid #3A444F;transition:all .15s}
-  .dot.ok{background:var(--ok);border-color:var(--ok);box-shadow:0 0 7px rgba(63,185,80,.45)}
-  .dot.def{background:var(--def);border-color:var(--def);box-shadow:0 0 7px rgba(248,81,73,.45)}
-  .dot.blq{background:var(--wait);border-color:var(--wait);box-shadow:0 0 7px rgba(210,153,34,.4)}
-  .const .dot.def{background:var(--wait);border-color:var(--wait);box-shadow:0 0 7px rgba(210,153,34,.4)}
+  .dot.g{background:var(--ok);border-color:var(--ok);box-shadow:0 0 7px rgba(63,185,80,.45)}
+  .dot.r{background:var(--def);border-color:var(--def);box-shadow:0 0 7px rgba(248,81,73,.45)}
+  .dot.a{background:var(--wait);border-color:var(--wait);box-shadow:0 0 7px rgba(210,153,34,.4)}
   .iname{flex:1;min-width:0;font-size:15px}
   .iname small{display:block;font-size:12px;color:var(--faint);margin-top:1px;line-height:1.3}
 
@@ -90,13 +111,11 @@
     padding:9px 7px;min-width:50px;background:var(--raised);color:var(--dim);
     border:1px solid var(--line);border-radius:4px;cursor:pointer;transition:all .12s}
   .btns button:active{transform:scale(.94)}
-  .btns button[data-v=ok].on{background:#0D2413;border-color:var(--ok);color:var(--ok)}
-  .btns button[data-v=def].on{background:#2A0E0C;border-color:var(--def);color:var(--def)}
-  .btns button[data-v=blq].on{background:#2A1E06;border-color:var(--wait);color:var(--wait)}
-  .const .btns button[data-v=def].on{background:#2A1E06;border-color:var(--wait);color:var(--wait)}
+  .btns button.g{background:#0D2413;border-color:var(--ok);color:var(--ok)}
+  .btns button.r{background:#2A0E0C;border-color:var(--def);color:var(--def)}
+  .btns button.a{background:#2A1E06;border-color:var(--wait);color:var(--wait)}
 
-  .note{margin:0 0 12px 20px;display:none}
-  .note.show{display:block}
+  .note{margin:0 0 12px 20px;display:none}.note.show{display:block}
   .note input{background:#1A0F0E;border-color:#4A211E;font-size:14px;padding:9px 11px}
   .note input::placeholder{color:#7A5A57}
   .note.val input{background:#0C1620;border-color:#1F3A52}
@@ -106,15 +125,13 @@
     border-top:1px solid var(--line);padding:11px 14px calc(11px + env(safe-area-inset-bottom))}
   .fwrap{max-width:780px;margin:0 auto;display:flex;gap:10px;align-items:center}
   .fstat{flex:1;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em;line-height:1.35}
-  .fstat b{color:var(--wait)}
-  .fstat.ready b{color:var(--ok)}
+  .fstat b{color:var(--wait)}.fstat.ready b{color:var(--ok)}
   .gen{background:var(--info);color:#04121F;border:none;border-radius:5px;padding:13px 18px;
     font-size:14px;font-weight:700;cursor:pointer;font-family:var(--sans);white-space:nowrap}
   .gen:disabled{background:var(--raised);color:var(--faint);cursor:not-allowed}
   .gen:active:not(:disabled){transform:scale(.97)}
 
-  .out{margin:26px 0 8px;display:none}
-  .out.show{display:block}
+  .out{margin:26px 0 8px;display:none}.out.show{display:block}
   .out textarea{min-height:300px;background:var(--surface);font-family:var(--mono);
     font-size:12.5px;line-height:1.65;padding:14px;border-radius:6px}
   .oact{display:flex;gap:9px;margin-top:10px}
@@ -126,13 +143,11 @@
     background:var(--surface);border:1px solid var(--soft);border-radius:6px;margin:18px 0 26px}
   .hint b{color:var(--dim)}
 
-  /* histórico */
   .htop{display:flex;gap:9px;align-items:center;margin:16px 0 12px}
   .htop input{flex:1}
   .hbtn{background:var(--raised);border:1px solid var(--line);color:var(--dim);
     border-radius:4px;padding:11px 13px;font-size:13px;cursor:pointer;font-family:var(--sans);white-space:nowrap}
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:6px;
-    padding:13px;margin-bottom:10px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:13px;margin-bottom:10px}
   .ctop{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
   .cos{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--info)}
   .cmod{font-size:13px;color:var(--dim)}
@@ -144,12 +159,21 @@
   .bdg.d{color:var(--def);border-color:#4A1815;background:#1F0C0B}
   .bdg.b{color:var(--wait);border-color:#4A3A10;background:#241D0A}
   .bdg.o{color:var(--ok);border-color:#1B4426;background:#0D2413}
+  .bdg.f{color:var(--info);border-color:#1F3A52;background:#0C1620}
   .bdg.p{color:var(--faint);border-color:var(--line);background:var(--raised)}
   .cact{display:flex;gap:7px;margin-top:11px}
   .cact button{flex:1;padding:9px;border-radius:4px;font-size:12.5px;font-weight:600;
     cursor:pointer;font-family:var(--sans);background:var(--raised);color:var(--txt);border:1px solid var(--line)}
   .cact button.del{flex:0 0 auto;padding:9px 12px;color:var(--def);border-color:#3A1A18;background:#1A0C0B}
   .vazio{text-align:center;color:var(--faint);padding:48px 20px;font-size:14px;line-height:1.6}
+
+  .lb{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.94);display:none;
+    align-items:center;justify-content:center;padding:16px}
+  .lb.on{display:flex}
+  .lb img{max-width:100%;max-height:88vh;border-radius:6px}
+  .lb button{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;
+    background:var(--raised);border:1px solid var(--line);color:var(--txt);
+    border-radius:5px;padding:10px 15px;font-size:14px;cursor:pointer;font-family:var(--sans)}
 
   @media (max-width:420px){
     .row2{grid-template-columns:1fr}
@@ -176,7 +200,6 @@
 
 <main>
 
-<!-- ============ VIEW: CHECKLIST ============ -->
 <div class="view on" id="vChk">
   <div class="setup">
     <label class="lbl" for="tipo">Equipamento</label>
@@ -214,38 +237,43 @@
     </select>
 
     <div class="row2">
-      <div>
-        <label class="lbl" for="os">Ordem de serviço</label>
-        <input type="text" id="os" placeholder="0733" inputmode="numeric">
-      </div>
-      <div>
-        <label class="lbl" for="cli">Cliente</label>
-        <input type="text" id="cli" placeholder="Nome">
-      </div>
+      <div><label class="lbl" for="os">Ordem de serviço</label>
+        <input type="text" id="os" placeholder="0733" inputmode="numeric"></div>
+      <div><label class="lbl" for="cli">Cliente</label>
+        <input type="text" id="cli" placeholder="Nome"></div>
     </div>
 
-    <div class="mt">
-      <label class="lbl" for="tel">Telefone</label>
-      <input type="text" id="tel" placeholder="47 99999-9999" inputmode="tel">
+    <div class="mt"><label class="lbl" for="tel">Telefone</label>
+      <input type="text" id="tel" placeholder="47 99999-9999" inputmode="tel"></div>
+
+    <div class="mt"><label class="lbl" for="rel">Defeito relatado</label>
+      <textarea id="rel" rows="2" placeholder="O que o cliente relatou"></textarea></div>
+
+    <div class="mt"><label class="lbl" for="ace">Acessórios recebidos</label>
+      <input type="text" id="ace" placeholder="Console, controle, cabo de alimentação…"></div>
+
+    <div class="sechead"><span>Identificação</span><b>interno</b></div>
+    <div class="row2" style="margin-top:9px">
+      <div><label class="lbl" for="mod">Modelo do console</label>
+        <input type="text" id="mod" placeholder="CUH-2015A"></div>
+      <div><label class="lbl" for="ser">Serial do console</label>
+        <input type="text" id="ser" placeholder="Serial"></div>
+    </div>
+    <div class="row2">
+      <div><label class="lbl" for="hdm">Modelo do HD / SSD</label>
+        <input type="text" id="hdm" placeholder="ST1000LM035"></div>
+      <div><label class="lbl" for="hds">Serial do HD / SSD</label>
+        <input type="text" id="hds" placeholder="Serial"></div>
     </div>
 
-    <div class="mt">
-      <label class="lbl" for="rel">Defeito relatado</label>
-      <textarea id="rel" rows="2" placeholder="O que o cliente relatou"></textarea>
-    </div>
-
-    <div class="mt">
-      <label class="lbl" for="ace">Acessórios recebidos</label>
-      <input type="text" id="ace" placeholder="Console, controle, cabo de alimentação…">
-    </div>
+    <div class="sechead"><span>Fotos</span><b>interno</b></div>
+    <div class="fotos" id="fotos"></div>
 
     <label class="toggle">
       <input type="checkbox" id="eletr">
       <span>Diagnóstico elétrico
-        <small>Marque quando o console não liga, liga e desliga, ou desliga sozinho</small>
-      </span>
+        <small>Marque quando o console não liga, liga e desliga, ou desliga sozinho</small></span>
     </label>
-
     <label class="toggle">
       <input type="checkbox" id="ctrl">
       <span>Vieram controles junto</span>
@@ -255,12 +283,11 @@
   <div id="lista"></div>
 
   <div class="hint" id="hint">
-    <b>Recepção e inspeção visual:</b> responda <b>SIM</b> ou <b>NÃO</b> —
-    marcando SIM, abre campo para descrever o que encontrou.<br><br>
-    <b>Demais grupos:</b> <b>OK</b> testado e funcionando &middot;
-    <b>DEF</b> testado, com defeito &middot;
+    <b>SIM</b> é sempre a resposta esperada &middot;
+    <b>NÃO</b> indica problema &middot;
     <b>BLQ</b> não deu para testar agora (outro defeito impede).<br><br>
-    O resumo só libera quando todos os pontos tiverem resposta.
+    Marcando <b>NÃO</b>, abre campo para descrever o que encontrou.
+    Os pontos <b>BLQ</b> saem no resumo com aviso para retestar depois do reparo.
     Tudo é salvo automaticamente no histórico.
   </div>
 
@@ -274,10 +301,9 @@
   </div>
 </div>
 
-<!-- ============ VIEW: HISTÓRICO ============ -->
 <div class="view" id="vHist">
   <div class="htop">
-    <input type="text" id="busca" placeholder="Buscar por OS, cliente ou modelo">
+    <input type="text" id="busca" placeholder="Buscar por OS, cliente, modelo ou serial">
     <button class="hbtn" id="bkp">Backup</button>
   </div>
   <div id="cards"></div>
@@ -292,13 +318,79 @@
   </div>
 </footer>
 
+<div class="lb" id="lb"><img id="lbimg" alt=""><button id="lbx">Fechar</button></div>
+
 <script>
 (function(){
   "use strict";
+  var CHAVE="cavanhol.checklists.v2";
 
-  var CHAVE = "cavanhol.checklists.v1";
+  /* ============ banco de fotos (IndexedDB) ============ */
+  var DB=null;
+  function abrirDB(){
+    return new Promise(function(ok,err){
+      if(DB) return ok(DB);
+      var r=indexedDB.open("cavanholFotos",1);
+      r.onupgradeneeded=function(){ r.result.createObjectStore("fotos",{keyPath:"id"}); };
+      r.onsuccess=function(){ DB=r.result; ok(DB); };
+      r.onerror=function(){ err(r.error); };
+    });
+  }
+  function fotoSalvar(reg){
+    return abrirDB().then(function(db){
+      return new Promise(function(ok,err){
+        var t=db.transaction("fotos","readwrite");
+        t.objectStore("fotos").put(reg);
+        t.oncomplete=function(){ok();}; t.onerror=function(){err(t.error);};
+      });
+    });
+  }
+  function fotoLer(id){
+    return abrirDB().then(function(db){
+      return new Promise(function(ok){
+        var q=db.transaction("fotos","readonly").objectStore("fotos").get(id);
+        q.onsuccess=function(){ ok(q.result||null); };
+        q.onerror=function(){ ok(null); };
+      });
+    });
+  }
+  function fotoApagar(id){
+    return abrirDB().then(function(db){
+      return new Promise(function(ok){
+        var t=db.transaction("fotos","readwrite");
+        t.objectStore("fotos").delete(id);
+        t.oncomplete=function(){ok();}; t.onerror=function(){ok();};
+      });
+    });
+  }
+  function fotosTodas(){
+    return abrirDB().then(function(db){
+      return new Promise(function(ok){
+        var q=db.transaction("fotos","readonly").objectStore("fotos").getAll();
+        q.onsuccess=function(){ ok(q.result||[]); };
+        q.onerror=function(){ ok([]); };
+      });
+    });
+  }
+  function comprimir(file,maxLado,qual){
+    return new Promise(function(ok,err){
+      var fr=new FileReader();
+      fr.onload=function(){
+        var im=new Image();
+        im.onload=function(){
+          var w=im.width,h=im.height,e=Math.min(1,maxLado/Math.max(w,h));
+          var c=document.createElement("canvas");
+          c.width=Math.round(w*e); c.height=Math.round(h*e);
+          c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+          ok(c.toDataURL("image/jpeg",qual));
+        };
+        im.onerror=err; im.src=fr.result;
+      };
+      fr.onerror=err; fr.readAsDataURL(file);
+    });
+  }
 
-  /* ---------- catálogo ---------- */
+  /* ============ catálogo ============ */
   var PS3="ps3fat,ps3slim,ps3ss", PS4="ps4fat,ps4slim,ps4pro",
       PS5="ps5,ps5d,ps5s,ps5sd", X360="x360fat,x360slim",
       XONE="xonefat,xones,xonex", XSER="xss,xsx";
@@ -309,78 +401,80 @@
   var COM_OPTICA=PS3+","+PS4+","+X360+","+XONE;
   var COM_WIFI=PS3+","+PS4+","+PS5+",x360slim,"+XONE+","+XSER;
 
+  /* neg:true  => a resposta esperada e NAO (grupos de constatacao)
+     neg:false => a resposta esperada e SIM (testes de funcionamento) */
   var GRUPOS=[
-    { nome:"Recepção", sub:"antes de abrir", tipo:"const", itens:[
-      {id:"carc",  n:"Avarias na carcaça",           d:"Riscos, trincas, tampa faltando, parafuso externo", c:"*"},
-      {id:"queda", n:"Sinais de queda ou impacto",   d:"Amassados, conector torto, folga",            c:"*"},
-      {id:"abriu", n:"Sinais de abertura anterior",  d:"Lacre, parafuso espanado, marca de chave",    c:"*"}
+    { nome:"Recepção", sub:"antes de abrir", neg:true, itens:[
+      {id:"carc",  n:"Avarias na carcaça?",            d:"Riscos, trincas, tampa faltando, parafuso externo", c:"*"},
+      {id:"queda", n:"Sinais de queda ou impacto?",    d:"Amassados, conector torto, folga",             c:"*"},
+      {id:"abriu", n:"Sinais de abertura anterior?",   d:"Lacre, parafuso espanado, marca de chave",     c:"*"}
     ]},
-    { nome:"Inspeção visual da placa", sub:"depois de abrir", tipo:"const", itens:[
-      {id:"oxid",  n:"Oxidação",                     d:"Trilhas, pads, ao redor de conectores",       c:"*"},
-      {id:"cont",  n:"Contaminação",                 d:"Sujeira, líquido, insetos",                   c:"*"},
-      {id:"interv",n:"Intervenção anterior na placa",d:"Fluxo, solda refeita, jumper, CI trocado",    c:"*"},
-      {id:"dano",  n:"Componentes danificados",      d:"Estourado, queimado, ausente",                c:"*"},
-      {id:"flats", n:"Flats ou conectores avariados",d:"Rasgado, prensado, mal encaixado",            c:"*"}
+    { nome:"Inspeção visual da placa", sub:"depois de abrir", neg:true, itens:[
+      {id:"oxid",  n:"Oxidação?",                      d:"Trilhas, pads, ao redor de conectores",        c:"*"},
+      {id:"cont",  n:"Contaminação?",                  d:"Sujeira, líquido, insetos",                    c:"*"},
+      {id:"interv",n:"Intervenção anterior na placa?", d:"Fluxo, solda refeita, jumper, CI trocado",     c:"*"},
+      {id:"dano",  n:"Componentes danificados?",       d:"Estourado, queimado, ausente",                 c:"*"},
+      {id:"flats", n:"Flats ou conectores avariados?", d:"Rasgado, prensado, mal encaixado",             c:"*"}
     ]},
     { nome:"Acionamento", sub:"", itens:[
-      {id:"liga",  n:"Liga pelo botão",              d:"",                                            c:"*"},
-      {id:"ligac", n:"Liga pelo controle",           d:"",                                            c:"*"},
-      {id:"prot",  n:"Não aciona proteção",          d:"Não desliga sozinho ao ligar",                c:"*"},
-      {id:"mant",  n:"Mantém ligado sob carga",      d:"Jogo pesado por período prolongado",          c:"*"},
-      {id:"cicl",  n:"Desliga e religa normal",      d:"Ciclo completo, sem travar",                  c:"*"}
+      {id:"liga",  n:"Liga pelo botão?",               d:"",                                             c:"*"},
+      {id:"ligac", n:"Liga pelo controle?",            d:"",                                             c:"*"},
+      {id:"prot",  n:"Liga sem acionar proteção?",     d:"Não desliga sozinho ao ligar",                 c:"*"},
+      {id:"mant",  n:"Mantém ligado sob carga?",       d:"Jogo pesado por período prolongado",           c:"*"},
+      {id:"cicl",  n:"Desliga e religa normalmente?",  d:"Ciclo completo, sem travar",                   c:"*"}
     ]},
     { nome:"Vídeo e áudio", sub:"", itens:[
-      {id:"hdmi",  n:"Imagem pelo HDMI",             d:"",                                            c:"*"},
-      {id:"av",    n:"Imagem pela saída AV",         d:"Saída analógica",                             c:COM_AV},
-      {id:"hdin",  n:"Entrada HDMI (passagem)",      d:"HDMI IN — quase sempre esquecido",            c:XONE},
-      {id:"som",   n:"Áudio pelo HDMI",              d:"",                                            c:"*"},
-      {id:"opt",   n:"Saída óptica",                 d:"",                                            c:COM_OPTICA}
+      {id:"hdmi",  n:"Tem imagem pelo HDMI?",          d:"",                                             c:"*"},
+      {id:"av",    n:"Tem imagem pela saída AV?",      d:"Saída analógica",                              c:COM_AV},
+      {id:"hdin",  n:"Entrada HDMI funciona?",         d:"HDMI IN — quase sempre esquecido",             c:XONE},
+      {id:"som",   n:"Tem áudio pelo HDMI?",           d:"",                                             c:"*"},
+      {id:"opt",   n:"Saída óptica funciona?",         d:"",                                             c:COM_OPTICA}
     ]},
     { nome:"Armazenamento", sub:"", itens:[
-      {id:"reco",  n:"Reconhece o disco",            d:"",                                            c:"*"},
-      {id:"smart", n:"Saúde SMART",                  d:"Testar FORA do console",                      c:"*", val:"Saúde em % (ex.: 87%)"},
-      {id:"mseg",  n:"Sobe sem modo de segurança",   d:"Sem pedir reinstalação do sistema",           c:PS3+","+PS4+","+PS5}
+      {id:"reco",  n:"Reconhece o disco?",             d:"",                                             c:"*"},
+      {id:"smart", n:"SMART sem alertas?",             d:"Testar FORA do console",                       c:"*", val:"Saúde em % (ex.: 87%)"},
+      {id:"mseg",  n:"Sobe sem modo de segurança?",    d:"Sem pedir reinstalação do sistema",            c:PS3+","+PS4+","+PS5}
     ]},
     { nome:"Leitor de discos", sub:"", itens:[
-      {id:"puxa",  n:"Puxa a mídia",                 d:"",                                            c:COM_LEITOR},
-      {id:"le",    n:"Lê a mídia",                   d:"Testar jogo e, se possível, filme",           c:COM_LEITOR},
-      {id:"ejeta", n:"Ejeta a mídia",                d:"Pelo botão e pelo menu",                      c:COM_LEITOR}
+      {id:"puxa",  n:"Puxa a mídia?",                  d:"",                                             c:COM_LEITOR},
+      {id:"le",    n:"Lê a mídia?",                    d:"Testar jogo e, se possível, filme",            c:COM_LEITOR},
+      {id:"ejeta", n:"Ejeta a mídia?",                 d:"Pelo botão e pelo menu",                       c:COM_LEITOR}
     ]},
     { nome:"Refrigeração", sub:"", itens:[
-      {id:"cool",  n:"Cooler gira",                  d:"",                                            c:"*"},
-      {id:"ruid",  n:"Sem ruído anormal",            d:"Rolamento, raspagem, assobio",                c:"*"},
-      {id:"temp",  n:"Temperatura sob carga",        d:"Sem aquecimento anormal",                     c:"*", val:"Temperatura máxima (ex.: 68°C)"}
+      {id:"cool",  n:"Cooler gira?",                   d:"",                                             c:"*"},
+      {id:"ruid",  n:"Gira sem ruído anormal?",        d:"Rolamento, raspagem, assobio",                 c:"*"},
+      {id:"temp",  n:"Temperatura normal sob carga?",  d:"Sem aquecimento anormal",                      c:"*", val:"Temperatura máxima (ex.: 68°C)"}
     ]},
     { nome:"Portas e conectividade", sub:"", itens:[
-      {id:"usb",   n:"Portas USB",                   d:"Testar UMA A UMA, frente e trás",             c:"*"},
-      {id:"wifi",  n:"Conecta no Wi-Fi",             d:"",                                            c:COM_WIFI},
-      {id:"rede",  n:"Rede cabeada",                 d:"Conectar cabo e testar conexão",              c:"*"},
-      {id:"bt",    n:"Pareia controle sem fio",      d:"Testar também a alguns metros",               c:"*"}
+      {id:"usb",   n:"Todas as portas USB funcionam?", d:"Testar UMA A UMA, frente e trás",              c:"*"},
+      {id:"wifi",  n:"Conecta no Wi-Fi?",              d:"",                                             c:COM_WIFI},
+      {id:"rede",  n:"Rede cabeada funciona?",         d:"Conectar cabo e testar conexão",               c:"*"},
+      {id:"bt",    n:"Pareia e mantém o controle?",    d:"Testar também a alguns metros",                c:"*"}
     ]},
     { nome:"Painel frontal", sub:"", itens:[
-      {id:"bpow",  n:"Botão power",                  d:"",                                            c:"*"},
-      {id:"beje",  n:"Botão eject",                  d:"",                                            c:COM_LEITOR},
-      {id:"leds",  n:"LEDs indicadores",             d:"",                                            c:"*"}
+      {id:"bpow",  n:"Botão power funciona?",          d:"",                                             c:"*"},
+      {id:"beje",  n:"Botão eject funciona?",          d:"",                                             c:COM_LEITOR},
+      {id:"leds",  n:"LEDs indicadores funcionam?",    d:"",                                             c:"*"}
     ]}
   ];
 
   var ELETRICO={ nome:"Diagnóstico elétrico", sub:"medições", itens:[
-    {id:"e_fext", n:"Fonte externa",                   d:"Tensão de saída sob carga",                 c:FONTE_EXT, val:"Tensão medida"},
-    {id:"e_fint", n:"Fonte de alimentação interna",    d:"Tensões de saída da fonte",                 c:FONTE_INT, val:"Tensões medidas"},
-    {id:"e_stby", n:"Standby na placa",                d:"Energia inicial de acionamento",            c:"*",       val:"Tensão medida"},
-    {id:"e_curto",n:"Sem curto nas linhas principais", d:"Linha principal e derivadas",               c:"*"},
-    {id:"e_start",n:"Sequência de partida completa",   d:"Rails sobem na ordem, até liberar o start", c:"*"},
-    {id:"e_cons", n:"Consumo normal",                  d:"Em repouso e ao acionar",                   c:"*",       val:"Consumo medido"},
-    {id:"e_aquec",n:"Sem aquecimento anormal",         d:"Câmera térmica ou toque, com o console energizado", c:"*"}
+    {id:"e_fext", n:"Fonte externa entrega tensão?",     d:"Sob carga",                                  c:FONTE_EXT, val:"Tensão medida"},
+    {id:"e_fint", n:"Fonte interna entrega tensões?",    d:"Saídas da fonte",                            c:FONTE_INT, val:"Tensões medidas"},
+    {id:"e_stby", n:"Standby presente na placa?",        d:"Energia inicial de acionamento",             c:"*",       val:"Tensão medida"},
+    {id:"e_curto",n:"Linhas principais sem curto?",      d:"Linha principal e derivadas",                c:"*"},
+    {id:"e_start",n:"Sequência de partida completa?",    d:"Rails sobem na ordem, até liberar o start",  c:"*"},
+    {id:"e_cons", n:"Consumo normal?",                   d:"Em repouso e ao acionar",                    c:"*",       val:"Consumo medido"},
+    {id:"e_aquec",n:"Sem aquecimento anormal?",          d:"Câmera térmica ou toque, com o console energizado", c:"*"}
   ]};
 
   var CTRLG={ nome:"Controles", sub:"", itens:[
-    {id:"c_ana", n:"Analógicos sem drift",     d:"Testar os dois eixos de cada um",  c:"*"},
-    {id:"c_bot", n:"Todos os botões",          d:"Inclui gatilhos e direcional",     c:"*"},
-    {id:"c_usb", n:"Conector USB do controle", d:"Carrega e comunica",               c:"*"},
-    {id:"c_vib", n:"Vibração",                 d:"",                                 c:"*"},
-    {id:"c_bat", n:"Bateria / compartimento",  d:"",                                 c:"*"},
-    {id:"c_caps",n:"Capas dos analógicos",     d:"Desgaste, folga",                  c:"*"}
+    {id:"c_ana", n:"Analógicos sem drift?",        d:"Testar os dois eixos de cada um", c:"*"},
+    {id:"c_bot", n:"Todos os botões funcionam?",   d:"Inclui gatilhos e direcional",    c:"*"},
+    {id:"c_usb", n:"Conector USB funciona?",       d:"Carrega e comunica",              c:"*"},
+    {id:"c_vib", n:"Vibração funciona?",           d:"",                                c:"*"},
+    {id:"c_bat", n:"Bateria e compartimento OK?",  d:"",                                c:"*"},
+    {id:"c_caps",n:"Capas dos analógicos íntegras?",d:"Desgaste, folga",                c:"*"}
   ]};
 
   var NOMES={
@@ -392,104 +486,94 @@
     xonefat:"Xbox One Fat", xones:"Xbox One S", xonex:"Xbox One X",
     xss:"Xbox Series S", xsx:"Xbox Series X"
   };
+  var CAMPOS=["#os","#cli","#tel","#rel","#ace","#mod","#ser","#hdm","#hds"];
 
-  /* ---------- estado ---------- */
-  var estado={}, visiveis=[], idAtual=null, carregando=false;
+  var estado={}, visiveis=[], fotos=[], idAtual=null, carregando=false;
   var $=function(s){return document.querySelector(s);};
-  var tipo=$("#tipo"), lista=$("#lista"), lamp=$("#lamp"), fill=$("#fill"), sub=$("#sub"),
-      gen=$("#gen"), fstat=$("#fstat"), out=$("#out"), txt=$("#txt"),
-      ctrl=$("#ctrl"), eletr=$("#eletr"), nav=$("#nav"),
-      vChk=$("#vChk"), vHist=$("#vHist"), cards=$("#cards"), busca=$("#busca");
+  var tipo=$("#tipo"),lista=$("#lista"),lamp=$("#lamp"),fill=$("#fill"),sub=$("#sub"),
+      gen=$("#gen"),fstat=$("#fstat"),out=$("#out"),txt=$("#txt"),
+      ctrl=$("#ctrl"),eletr=$("#eletr"),nav=$("#nav"),
+      vChk=$("#vChk"),vHist=$("#vHist"),cards=$("#cards"),busca=$("#busca"),
+      elFotos=$("#fotos");
 
-  /* ---------- armazenamento ---------- */
-  function ler(){
-    try{ return JSON.parse(localStorage.getItem(CHAVE)) || []; }
-    catch(e){ return []; }
-  }
-  function gravar(arr){
-    try{ localStorage.setItem(CHAVE, JSON.stringify(arr)); return true; }
-    catch(e){ return false; }
-  }
+  function ler(){ try{return JSON.parse(localStorage.getItem(CHAVE))||[];}catch(e){return [];} }
+  function gravar(a){ try{localStorage.setItem(CHAVE,JSON.stringify(a));return true;}catch(e){return false;} }
   function temConteudo(){
     if(!tipo.value) return false;
-    if($("#os").value.trim() || $("#cli").value.trim()) return true;
-    return visiveis.some(function(i){ return estado[i.id].v; });
+    if($("#os").value.trim()||$("#cli").value.trim()) return true;
+    if(fotos.length) return true;
+    return visiveis.some(function(i){return estado[i.id].v;});
   }
   function salvar(){
-    if(carregando || !temConteudo()) return;
-    var arr = ler();
-    if(!idAtual) idAtual = "c" + Date.now() + Math.floor(Math.random()*900+100);
-    var reg = {
-      id:idAtual, tipo:tipo.value,
-      os:$("#os").value.trim(), cli:$("#cli").value.trim(), tel:$("#tel").value.trim(),
-      rel:$("#rel").value.trim(), ace:$("#ace").value.trim(),
-      eletr:eletr.checked, ctrl:ctrl.checked,
-      estado:{}, alterado:Date.now()
-    };
+    if(carregando||!temConteudo()) return;
+    var arr=ler();
+    if(!idAtual) idAtual="c"+Date.now()+Math.floor(Math.random()*900+100);
+    var reg={id:idAtual,tipo:tipo.value,eletr:eletr.checked,ctrl:ctrl.checked,
+             estado:{},fotos:fotos.slice(),alterado:Date.now()};
+    CAMPOS.forEach(function(s){ reg[s.slice(1)]=$(s).value.trim(); });
     visiveis.forEach(function(i){
       var e=estado[i.id];
-      if(e.v || e.nota || e.val) reg.estado[i.id]={v:e.v,nota:e.nota,val:e.val};
+      if(e.v||e.nota||e.val) reg.estado[i.id]={v:e.v,nota:e.nota,val:e.val};
     });
-    var ix = arr.findIndex(function(r){ return r.id===idAtual; });
-    if(ix>-1){ reg.criado = arr[ix].criado; arr[ix]=reg; }
-    else { reg.criado = Date.now(); arr.unshift(reg); }
+    var ix=arr.findIndex(function(r){return r.id===idAtual;});
+    if(ix>-1){ reg.criado=arr[ix].criado; arr[ix]=reg; }
+    else { reg.criado=Date.now(); arr.unshift(reg); }
     gravar(arr);
   }
+  function aplica(c,t){ return c==="*"||c.split(",").indexOf(t)>-1; }
 
-  function aplica(c,t){ return c==="*" || c.split(",").indexOf(t)>-1; }
+  /* cor do ponto/botao conforme resposta e polaridade do item */
+  function cor(i,v){
+    if(!v) return "";
+    if(v==="blq") return "a";
+    var bom = i.neg ? "nao" : "sim";
+    return v===bom ? "g" : "r";
+  }
 
   function montar(){
     var t=tipo.value;
-    lista.innerHTML=""; estado={}; visiveis=[];
+    lista.innerHTML="";estado={};visiveis=[];
     out.classList.remove("show");
     if(!t){ sub.textContent="Selecione o equipamento"; $("#hint").style.display="none"; atualiza(); return; }
-    sub.textContent=NOMES[t];
-    $("#hint").style.display="block";
+    sub.textContent=NOMES[t]; $("#hint").style.display="block";
 
     var grupos=GRUPOS.slice();
     if(eletr.checked) grupos.splice(2,0,ELETRICO);
     if(ctrl.checked)  grupos.push(CTRLG);
 
     grupos.forEach(function(g){
-      var itens=g.itens.filter(function(i){ return aplica(i.c,t); });
+      var itens=g.itens.filter(function(i){return aplica(i.c,t);});
       if(!itens.length) return;
-      var isC = g.tipo==="const";
-
       var box=document.createElement("section");
-      box.className="group"+(isC?" const":"");
+      box.className="group";
       box.innerHTML='<div class="ghead"><h2>'+g.nome+'</h2>'+
         (g.sub?'<span class="gsub">'+g.sub+'</span>':'')+
         '<span class="gcount">'+itens.length+'</span></div>';
 
       itens.forEach(function(i){
-        i.const=isC;
+        i.neg=!!g.neg;
         visiveis.push(i);
         estado[i.id]={v:null,nota:"",val:""};
-
         var row=document.createElement("div");
         row.className="item";
         row.innerHTML=
           '<span class="dot" id="d_'+i.id+'"></span>'+
           '<span class="iname">'+i.n+(i.d?'<small>'+i.d+'</small>':'')+'</span>'+
-          '<span class="btns">'+(isC
-            ? '<button data-i="'+i.id+'" data-v="ok">NÃO</button>'+
-              '<button data-i="'+i.id+'" data-v="def">SIM</button>'
-            : '<button data-i="'+i.id+'" data-v="ok">OK</button>'+
-              '<button data-i="'+i.id+'" data-v="def">DEF</button>'+
-              '<button data-i="'+i.id+'" data-v="blq" title="Não deu para testar">BLQ</button>'
-          )+'</span>';
+          '<span class="btns">'+
+            '<button data-i="'+i.id+'" data-v="sim">SIM</button>'+
+            '<button data-i="'+i.id+'" data-v="nao">NÃO</button>'+
+            '<button data-i="'+i.id+'" data-v="blq" title="Não deu para testar">BLQ</button>'+
+          '</span>';
         box.appendChild(row);
-
         if(i.val){
           var vl=document.createElement("div");
-          vl.className="note val"; vl.id="v_"+i.id;
+          vl.className="note val";vl.id="v_"+i.id;
           vl.innerHTML='<input type="text" data-val="'+i.id+'" placeholder="'+i.val+'">';
           box.appendChild(vl);
         }
         var nt=document.createElement("div");
-        nt.className="note"; nt.id="n_"+i.id;
-        nt.innerHTML='<input type="text" data-n="'+i.id+'" placeholder="'+
-          (isC?"Descreva o que encontrou":"O que encontrou? (entra no resumo)")+'">';
+        nt.className="note";nt.id="n_"+i.id;
+        nt.innerHTML='<input type="text" data-n="'+i.id+'" placeholder="Descreva o que encontrou">';
         box.appendChild(nt);
       });
       lista.appendChild(box);
@@ -497,42 +581,38 @@
     atualiza();
   }
 
+  function ruim(i){ return i.neg ? "sim" : "nao"; }
+
   function pinta(id){
-    var e=estado[id];
+    var i=visiveis.filter(function(x){return x.id===id;})[0]; if(!i) return;
+    var e=estado[id], c=cor(i,e.v);
     var wrap=$("#d_"+id).parentNode.querySelector(".btns");
-    if(wrap) wrap.querySelectorAll("button").forEach(function(x){
-      x.classList.toggle("on", x.dataset.v===e.v);
+    if(wrap) wrap.querySelectorAll("button").forEach(function(b){
+      b.className = (b.dataset.v===e.v) ? cor(i,b.dataset.v) : "";
     });
-    $("#d_"+id).className="dot"+(e.v?" "+e.v:"");
+    $("#d_"+id).className="dot"+(c?" "+c:"");
     var nt=$("#n_"+id);
-    if(nt){
-      nt.classList.toggle("show", e.v==="def");
-      nt.querySelector("input").value = e.nota||"";
-    }
+    if(nt){ nt.classList.toggle("show", e.v===ruim(i)); nt.querySelector("input").value=e.nota||""; }
     var vl=$("#v_"+id);
-    if(vl){
-      var m=(e.v==="ok"||e.v==="def");
-      vl.classList.toggle("show", m);
-      vl.querySelector("input").value = e.val||"";
-    }
+    if(vl){ var m=(e.v==="sim"||e.v==="nao");
+      vl.classList.toggle("show",m); vl.querySelector("input").value=e.val||""; }
   }
 
   lista.addEventListener("click",function(e){
     var b=e.target.closest("button[data-i]"); if(!b) return;
-    var id=b.dataset.i, v=b.dataset.v;
+    var id=b.dataset.i,v=b.dataset.v;
+    var i=visiveis.filter(function(x){return x.id===id;})[0];
     estado[id].v=(estado[id].v===v)?null:v;
-    if(estado[id].v!=="def") estado[id].nota="";
-    if(estado[id].v!=="ok" && estado[id].v!=="def") estado[id].val="";
-    pinta(id); atualiza(); salvar();
+    if(estado[id].v!==ruim(i)) estado[id].nota="";
+    if(estado[id].v!=="sim"&&estado[id].v!=="nao") estado[id].val="";
+    pinta(id);atualiza();salvar();
   });
   lista.addEventListener("input",function(e){
     var f=e.target.closest("input[data-n]");   if(f) estado[f.dataset.n].nota=f.value.trim();
     var g=e.target.closest("input[data-val]"); if(g) estado[g.dataset.val].val=g.value.trim();
     salvar();
   });
-  ["#os","#cli","#tel","#rel","#ace"].forEach(function(s){
-    $(s).addEventListener("input", salvar);
-  });
+  CAMPOS.forEach(function(s){ $(s).addEventListener("input",salvar); });
 
   function atualiza(){
     var tot=visiveis.length;
@@ -551,6 +631,55 @@
     else           fstat.innerHTML="<b>Tudo verificado</b>";
   }
 
+  /* ============ fotos ============ */
+  function pintaFotos(){
+    elFotos.innerHTML="";
+    fotos.forEach(function(f){
+      var d=document.createElement("div");
+      d.className="foto";
+      d.innerHTML='<img data-ver="'+f.id+'" alt="'+f.rot+'"><b>'+f.rot+'</b><i data-del="'+f.id+'">×</i>';
+      elFotos.appendChild(d);
+      fotoLer(f.id).then(function(r){ if(r) d.querySelector("img").src=r.dados; });
+    });
+    var add=document.createElement("button");
+    add.className="addf"; add.id="addf";
+    add.innerHTML="<b>+</b>foto";
+    elFotos.appendChild(add);
+  }
+  elFotos.addEventListener("click",function(e){
+    var v=e.target.closest("[data-ver]");
+    if(v){ fotoLer(v.dataset.ver).then(function(r){
+        if(r){ $("#lbimg").src=r.dados; $("#lb").classList.add("on"); } }); return; }
+    var d=e.target.closest("[data-del]");
+    if(d){ if(!confirm("Remover esta foto?")) return;
+      fotoApagar(d.dataset.del).then(function(){
+        fotos=fotos.filter(function(f){return f.id!==d.dataset.del;});
+        pintaFotos(); salvar(); }); return; }
+    if(e.target.closest("#addf")) novaFoto();
+  });
+  $("#lbx").addEventListener("click",function(){ $("#lb").classList.remove("on"); });
+  $("#lb").addEventListener("click",function(e){ if(e.target===this) this.classList.remove("on"); });
+
+  function novaFoto(){
+    var rot=prompt("Legenda da foto:\n(ex.: carcaça, HD, placa, defeito)","");
+    if(rot===null) return;
+    rot=(rot||"foto").trim().slice(0,18);
+    var inp=document.createElement("input");
+    inp.type="file"; inp.accept="image/*"; inp.setAttribute("capture","environment");
+    inp.onchange=function(){
+      var f=inp.files[0]; if(!f) return;
+      comprimir(f,1200,.6).then(function(dataUrl){
+        var fid="f"+Date.now()+Math.floor(Math.random()*900+100);
+        return fotoSalvar({id:fid,dados:dataUrl,criado:Date.now()}).then(function(){
+          fotos.push({id:fid,rot:rot});
+          pintaFotos(); salvar();
+        });
+      }).catch(function(){ alert("Não foi possível processar a imagem."); });
+    };
+    inp.click();
+  }
+
+  /* ============ resumo ============ */
   function gerar(){
     var t=tipo.value,L=[];
     L.push("CHECKLIST DE BANCADA — "+NOMES[t]);
@@ -561,19 +690,19 @@
     if($("#ace").value.trim()) L.push("Acessórios: "+$("#ace").value.trim());
     L.push("");
     var rel=$("#rel").value.trim();
-    if(rel){
-      L.push("DEFEITO RELATADO");
+    if(rel){ L.push("DEFEITO RELATADO");
       rel.split("\n").forEach(function(x){ if(x.trim()) L.push("  "+x.trim()); });
-      L.push("");
-    }
-    var ach=visiveis.filter(function(i){return estado[i.id].v==="def" &&  i.const;});
-    var def=visiveis.filter(function(i){return estado[i.id].v==="def" && !i.const;});
-    var ok =visiveis.filter(function(i){return estado[i.id].v==="ok"  && !i.const;});
+      L.push(""); }
+
+    var ach=visiveis.filter(function(i){return i.neg && estado[i.id].v==="sim";});
+    var def=visiveis.filter(function(i){return !i.neg && estado[i.id].v==="nao";});
+    var ok =visiveis.filter(function(i){return !i.neg && estado[i.id].v==="sim";});
     var blq=visiveis.filter(function(i){return estado[i.id].v==="blq";});
+    var lp=function(s){ return s.replace(/\?$/,""); };
 
     if(ach.length){
       L.push("CONSTATADO NA INSPEÇÃO ("+ach.length+")");
-      ach.forEach(function(i){ L.push("  - "+i.n+(estado[i.id].nota?": "+estado[i.id].nota:"")); });
+      ach.forEach(function(i){ L.push("  - "+lp(i.n)+(estado[i.id].nota?": "+estado[i.id].nota:"")); });
       L.push("");
     }
     if(def.length){
@@ -582,21 +711,32 @@
         var e=estado[i.id],ex=[];
         if(e.val) ex.push(e.val);
         if(e.nota) ex.push(e.nota);
-        L.push("  - "+i.n+(ex.length?": "+ex.join(" — "):""));
+        L.push("  - "+lp(i.n)+(ex.length?": "+ex.join(" — "):""));
       });
     } else L.push("DEFEITOS ENCONTRADOS: nenhum");
     L.push("");
     L.push("TESTADO E OK ("+ok.length+")");
     L.push("  "+(ok.length?ok.map(function(i){
-      return i.n+(estado[i.id].val?" ("+estado[i.id].val+")":"");
+      return lp(i.n)+(estado[i.id].val?" ("+estado[i.id].val+")":"");
     }).join(" | "):"—"));
     if(blq.length){
       L.push("");
       L.push("*** NAO FOI POSSIVEL TESTAR ("+blq.length+") ***");
-      L.push("  "+blq.map(function(i){return i.n;}).join(" | "));
+      L.push("  "+blq.map(function(i){return lp(i.n);}).join(" | "));
       L.push("");
       L.push("  >> RETESTAR TODOS ESSES PONTOS APOS O REPARO.");
       L.push("  >> Pode haver defeito empilhado atras do defeito principal.");
+    }
+    var ints=[];
+    if($("#mod").value.trim()) ints.push("Modelo do console: "+$("#mod").value.trim());
+    if($("#ser").value.trim()) ints.push("Serial do console: "+$("#ser").value.trim());
+    if($("#hdm").value.trim()) ints.push("Modelo do HD/SSD: "+$("#hdm").value.trim());
+    if($("#hds").value.trim()) ints.push("Serial do HD/SSD: "+$("#hds").value.trim());
+    if(fotos.length) ints.push("Fotos anexadas: "+fotos.map(function(f){return f.rot;}).join(", "));
+    if(ints.length){
+      L.push("");
+      L.push("--- DADOS INTERNOS (não enviar ao cliente) ---");
+      ints.forEach(function(x){ L.push("  "+x); });
     }
     L.push("");
     L.push("— verificados "+visiveis.length+" pontos —");
@@ -606,55 +746,52 @@
     out.scrollIntoView({behavior:"smooth",block:"start"});
   }
 
-  /* ---------- histórico ---------- */
-  function resumoReg(r){
-    var d=0,b=0,o=0,a=0;
-    for(var k in r.estado){
-      var v=r.estado[k].v;
-      if(v==="def") d++; else if(v==="blq") b++; else if(v==="ok") o++;
-      a++;
-    }
-    return {d:d,b:b,o:o,a:a};
-  }
-  function dataBr(ms){
-    var x=new Date(ms);
-    return ("0"+x.getDate()).slice(-2)+"/"+("0"+(x.getMonth()+1)).slice(-2)+"/"+x.getFullYear();
-  }
+  /* ============ histórico ============ */
+  function dataBr(ms){var x=new Date(ms);
+    return ("0"+x.getDate()).slice(-2)+"/"+("0"+(x.getMonth()+1)).slice(-2)+"/"+x.getFullYear();}
   function pintaHist(){
-    var arr=ler();
-    var q=busca.value.trim().toLowerCase();
+    var arr=ler(),q=busca.value.trim().toLowerCase();
     if(q) arr=arr.filter(function(r){
-      return (r.os+" "+r.cli+" "+(NOMES[r.tipo]||"")).toLowerCase().indexOf(q)>-1;
-    });
-    arr.sort(function(a,b){ return b.alterado-a.alterado; });
-
+      return ((r.os||"")+" "+(r.cli||"")+" "+(NOMES[r.tipo]||"")+" "+(r.ser||"")+" "+(r.hds||"")+" "+(r.mod||""))
+        .toLowerCase().indexOf(q)>-1; });
+    arr.sort(function(a,b){return b.alterado-a.alterado;});
     if(!arr.length){
       cards.innerHTML='<div class="vazio">'+(q?"Nada encontrado para essa busca."
-        :"Nenhum checklist salvo ainda.<br>Os checklists são salvos automaticamente conforme você preenche.")+'</div>';
+        :"Nenhum checklist salvo ainda.<br>Tudo é salvo automaticamente conforme você preenche.")+'</div>';
       return;
     }
     cards.innerHTML="";
     arr.forEach(function(r){
-      var s=resumoReg(r);
+      var d=0,b=0,o=0,a=0;
+      for(var k in r.estado){ var v=r.estado[k].v;
+        if(v==="blq") b++; else if(v) { a++; } }
+      // conta defeitos/ok pelo catalogo
+      var cat={}; GRUPOS.concat([ELETRICO,CTRLG]).forEach(function(g){
+        g.itens.forEach(function(i){ cat[i.id]=!!g.neg; }); });
+      d=0;o=0;
+      for(var k2 in r.estado){
+        var vv=r.estado[k2].v, ng=cat[k2];
+        if(vv==="blq") continue;
+        if(ng){ if(vv==="sim") d++; }
+        else  { if(vv==="nao") d++; else if(vv==="sim") o++; }
+      }
+      var bd="";
+      if(d) bd+='<span class="bdg d">'+d+' defeito'+(d>1?"s":"")+'</span>';
+      if(b) bd+='<span class="bdg b">'+b+' bloqueado'+(b>1?"s":"")+'</span>';
+      if(!d&&!b&&o) bd+='<span class="bdg o">sem defeito</span>';
+      if(r.fotos&&r.fotos.length) bd+='<span class="bdg f">'+r.fotos.length+' foto'+(r.fotos.length>1?"s":"")+'</span>';
+      if(!d&&!b&&!o) bd+='<span class="bdg p">em branco</span>';
       var el=document.createElement("div");
       el.className="card";
-      var bd="";
-      if(s.d) bd+='<span class="bdg d">'+s.d+' defeito'+(s.d>1?"s":"")+'</span>';
-      if(s.b) bd+='<span class="bdg b">'+s.b+' bloqueado'+(s.b>1?"s":"")+'</span>';
-      if(!s.d && !s.b && s.o) bd+='<span class="bdg o">sem defeito</span>';
-      if(!s.a) bd+='<span class="bdg p">em branco</span>';
       el.innerHTML=
         '<div class="ctop">'+
           (r.os?'<span class="cos">OS '+r.os+'</span>':'<span class="cos">sem OS</span>')+
           '<span class="cmod">'+(NOMES[r.tipo]||r.tipo)+'</span>'+
-          '<span class="cdat">'+dataBr(r.alterado)+'</span>'+
-        '</div>'+
+          '<span class="cdat">'+dataBr(r.alterado)+'</span></div>'+
         (r.cli?'<div class="ccli">'+r.cli+'</div>':'')+
         '<div class="cbadges">'+bd+'</div>'+
-        '<div class="cact">'+
-          '<button data-ab="'+r.id+'">Abrir</button>'+
-          '<button class="del" data-ex="'+r.id+'">Excluir</button>'+
-        '</div>';
+        '<div class="cact"><button data-ab="'+r.id+'">Abrir</button>'+
+          '<button class="del" data-ex="'+r.id+'">Excluir</button></div>';
       cards.appendChild(el);
     });
   }
@@ -663,8 +800,10 @@
     if(a){ abrir(a.dataset.ab); return; }
     var x=e.target.closest("button[data-ex]");
     if(x){
-      if(!confirm("Excluir este checklist?")) return;
-      gravar(ler().filter(function(r){ return r.id!==x.dataset.ex; }));
+      if(!confirm("Excluir este checklist? As fotos também serão apagadas.")) return;
+      var r=ler().filter(function(y){return y.id===x.dataset.ex;})[0];
+      if(r&&r.fotos) r.fotos.forEach(function(f){ fotoApagar(f.id); });
+      gravar(ler().filter(function(y){return y.id!==x.dataset.ex;}));
       if(idAtual===x.dataset.ex) idAtual=null;
       pintaHist();
     }
@@ -672,72 +811,68 @@
   busca.addEventListener("input",pintaHist);
 
   function abrir(id){
-    var r=ler().filter(function(x){ return x.id===id; })[0];
-    if(!r) return;
-    carregando=true;
-    idAtual=r.id;
-    tipo.value=r.tipo;
-    eletr.checked=!!r.eletr;
-    ctrl.checked=!!r.ctrl;
+    var r=ler().filter(function(x){return x.id===id;})[0]; if(!r) return;
+    carregando=true; idAtual=r.id;
+    tipo.value=r.tipo; eletr.checked=!!r.eletr; ctrl.checked=!!r.ctrl;
     montar();
-    $("#os").value=r.os||""; $("#cli").value=r.cli||""; $("#tel").value=r.tel||"";
-    $("#rel").value=r.rel||""; $("#ace").value=r.ace||"";
+    CAMPOS.forEach(function(s){ $(s).value=r[s.slice(1)]||""; });
+    fotos=(r.fotos||[]).slice(); pintaFotos();
     visiveis.forEach(function(i){
       var g=r.estado[i.id];
       if(g){ estado[i.id]={v:g.v||null,nota:g.nota||"",val:g.val||""}; pinta(i.id); }
     });
-    carregando=false;
-    atualiza();
-    verChk();
-    window.scrollTo({top:0});
+    carregando=false; atualiza(); verChk(); window.scrollTo({top:0});
   }
 
   function verChk(){
-    vChk.classList.add("on"); vHist.classList.remove("on");
-    nav.textContent="Histórico";
-    $("#titulo").textContent="Checklist de Bancada";
+    vChk.classList.add("on");vHist.classList.remove("on");
+    nav.textContent="Histórico";$("#titulo").textContent="Checklist de Bancada";
     document.querySelector("footer").style.display="";
-    sub.textContent = tipo.value ? NOMES[tipo.value] : "Selecione o equipamento";
+    sub.textContent=tipo.value?NOMES[tipo.value]:"Selecione o equipamento";
   }
   function verHist(){
-    vHist.classList.add("on"); vChk.classList.remove("on");
-    nav.textContent="Voltar";
-    $("#titulo").textContent="Histórico";
-    sub.textContent = ler().length + " checklist" + (ler().length===1?"":"s") + " salvo" + (ler().length===1?"":"s");
+    vHist.classList.add("on");vChk.classList.remove("on");
+    nav.textContent="Voltar";$("#titulo").textContent="Histórico";
+    var n=ler().length;
+    sub.textContent=n+" checklist"+(n===1?"":"s")+" salvo"+(n===1?"":"s");
     document.querySelector("footer").style.display="none";
-    pintaHist();
-    window.scrollTo({top:0});
+    pintaHist();window.scrollTo({top:0});
   }
   nav.addEventListener("click",function(){
     if(vHist.classList.contains("on")) verChk(); else verHist();
   });
 
-  /* ---------- backup ---------- */
   $("#bkp").addEventListener("click",function(){
-    var opc = prompt("Digite:\n1 = baixar backup de todos os checklists\n2 = restaurar backup de um arquivo");
-    if(opc==="1"){
-      var blob=new Blob([JSON.stringify(ler(),null,2)],{type:"application/json"});
-      var a=document.createElement("a");
-      a.href=URL.createObjectURL(blob);
-      a.download="checklists-backup-"+new Date().toISOString().slice(0,10)+".json";
-      a.click();
-      setTimeout(function(){ URL.revokeObjectURL(a.href); },2000);
-    } else if(opc==="2"){
+    var o=prompt("Digite:\n1 = baixar backup (checklists + fotos)\n2 = restaurar backup de um arquivo");
+    if(o==="1"){
+      fotosTodas().then(function(fs){
+        var pacote={checklists:ler(),fotos:fs,versao:2};
+        var blob=new Blob([JSON.stringify(pacote)],{type:"application/json"});
+        var a=document.createElement("a");
+        a.href=URL.createObjectURL(blob);
+        a.download="checklists-backup-"+new Date().toISOString().slice(0,10)+".json";
+        a.click();
+        setTimeout(function(){URL.revokeObjectURL(a.href);},3000);
+      });
+    } else if(o==="2"){
       var inp=document.createElement("input");
-      inp.type="file"; inp.accept=".json,application/json";
+      inp.type="file";inp.accept=".json,application/json";
       inp.onchange=function(){
-        var f=inp.files[0]; if(!f) return;
+        var f=inp.files[0];if(!f)return;
         var fr=new FileReader();
         fr.onload=function(){
           try{
-            var novos=JSON.parse(fr.result);
-            if(!Array.isArray(novos)) throw 0;
-            var atual=ler(), ids={};
-            atual.forEach(function(r){ ids[r.id]=1; });
+            var p=JSON.parse(fr.result);
+            var novos=Array.isArray(p)?p:(p.checklists||[]);
+            var fs=Array.isArray(p)?[]:(p.fotos||[]);
+            var atual=ler(),ids={};
+            atual.forEach(function(r){ids[r.id]=1;});
             var add=0;
-            novos.forEach(function(r){ if(r && r.id && !ids[r.id]){ atual.push(r); add++; } });
-            gravar(atual); pintaHist();
-            alert(add+" checklist(s) restaurado(s).");
+            novos.forEach(function(r){ if(r&&r.id&&!ids[r.id]){atual.push(r);add++;} });
+            gravar(atual);
+            Promise.all(fs.map(function(x){return fotoSalvar(x);})).then(function(){
+              pintaHist(); alert(add+" checklist(s) e "+fs.length+" foto(s) restaurados.");
+            });
           }catch(e){ alert("Arquivo inválido."); }
         };
         fr.readAsText(f);
@@ -746,30 +881,27 @@
     }
   });
 
-  /* ---------- ações ---------- */
-  tipo.addEventListener("change",function(){ montar(); salvar(); });
-  ctrl.addEventListener("change",function(){ montar(); salvar(); });
-  eletr.addEventListener("change",function(){ montar(); salvar(); });
+  tipo.addEventListener("change",function(){montar();salvar();});
+  ctrl.addEventListener("change",function(){montar();salvar();});
+  eletr.addEventListener("change",function(){montar();salvar();});
   gen.addEventListener("click",gerar);
 
   $("#cp").addEventListener("click",function(){
-    txt.select(); txt.setSelectionRange(0,999999);
+    txt.select();txt.setSelectionRange(0,999999);
     var b=this,o=b.textContent;
-    try{ document.execCommand("copy"); b.textContent="Copiado"; }
-    catch(e){ b.textContent="Selecione e copie"; }
-    setTimeout(function(){ b.textContent=o; },1600);
+    try{document.execCommand("copy");b.textContent="Copiado";}
+    catch(e){b.textContent="Selecione e copie";}
+    setTimeout(function(){b.textContent=o;},1600);
   });
-
   $("#novo").addEventListener("click",function(){
-    idAtual=null;
-    carregando=true;
-    ["#os","#cli","#tel","#rel","#ace"].forEach(function(s){ $(s).value=""; });
-    tipo.value=""; eletr.checked=false; ctrl.checked=false;
-    montar();
-    carregando=false;
+    idAtual=null;carregando=true;fotos=[];
+    CAMPOS.forEach(function(s){$(s).value="";});
+    tipo.value="";eletr.checked=false;ctrl.checked=false;
+    montar();pintaFotos();carregando=false;
     window.scrollTo({top:0,behavior:"smooth"});
   });
 
+  pintaFotos();
   atualiza();
 })();
 </script>
