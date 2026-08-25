@@ -83,9 +83,40 @@
     color:var(--dim);font-size:9px;font-family:var(--mono);text-align:center;
     padding:2px 0;font-weight:400;letter-spacing:.03em;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .foto u{position:absolute;top:2px;left:2px;width:19px;height:19px;border-radius:50%;
+    background:rgba(0,0,0,.8);color:var(--info);text-decoration:none;font-size:12px;
+    line-height:19px;text-align:center;cursor:pointer;font-weight:700}
   .foto i{position:absolute;top:2px;right:2px;width:19px;height:19px;border-radius:50%;
     background:rgba(0,0,0,.8);color:var(--def);font-style:normal;font-size:13px;
     line-height:19px;text-align:center;cursor:pointer;font-weight:700}
+  .foto .acts{position:absolute;top:2px;left:2px;display:flex;gap:3px}
+  .foto .acts u{width:19px;height:19px;border-radius:50%;background:rgba(0,0,0,.8);
+    color:var(--info);font-size:11px;line-height:19px;text-align:center;cursor:pointer;
+    text-decoration:none;font-style:normal;font-weight:700}
+  .fedit{margin-top:9px;display:none;gap:7px}
+  .fedit.show{display:flex}
+  .fedit input{flex:1}
+  .fedit button{padding:0 15px;border-radius:4px;border:1px solid var(--info);
+    background:#0C1620;color:var(--info);font-weight:700;cursor:pointer;font-family:var(--sans)}
+  .perigo{margin:24px 0 8px;padding:13px;border:1px solid #3A1A18;background:#160B0A;
+    border-radius:6px;display:none}
+  .perigo.show{display:block}
+  .perigo p{margin:0 0 10px;font-size:12.5px;color:var(--faint);line-height:1.5}
+  .perigo button{width:100%;padding:11px;border-radius:5px;font-size:13.5px;font-weight:600;
+    cursor:pointer;font-family:var(--sans);background:#2A0E0C;color:var(--def);border:1px solid #4A211E}
+  .vbox{margin-top:11px;padding-top:11px;border-top:1px solid var(--soft);display:none}
+  .vbox.show{display:block}
+  .vbox b{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--faint);display:block;margin-bottom:7px}
+  .vrow{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:13px;color:var(--dim)}
+  .vrow span{flex:1;font-family:var(--mono);font-size:11.5px}
+  .vrow button{padding:6px 11px;border-radius:4px;font-size:11.5px;cursor:pointer;
+    font-family:var(--sans);background:var(--raised);color:var(--txt);border:1px solid var(--line)}
+  .dias{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.05em;
+    padding:4px 8px;border-radius:3px;border:1px solid;text-transform:uppercase}
+  .dias.n{color:var(--faint);border-color:var(--line);background:var(--raised)}
+  .dias.w{color:var(--wait);border-color:#4A3A10;background:#241D0A}
+  .dias.c{color:var(--def);border-color:#4A1815;background:#1F0C0B}
   .addf{width:72px;height:72px;border-radius:5px;border:1px dashed var(--line);
     background:var(--bg);color:var(--faint);font-size:11px;font-family:var(--mono);
     cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
@@ -135,10 +166,16 @@
   .out textarea{min-height:300px;background:var(--surface);font-family:var(--mono);
     font-size:12.5px;line-height:1.65;padding:14px;border-radius:6px}
   .oact{display:flex;gap:9px;margin-top:10px}
-  .oact button{flex:1;padding:12px;border-radius:5px;font-size:13.5px;font-weight:600;
+  .oact{flex-wrap:wrap}
+  .oact button{flex:1 1 45%;padding:12px;border-radius:5px;font-size:13px;font-weight:600;
     cursor:pointer;font-family:var(--sans);background:var(--raised);color:var(--txt);border:1px solid var(--line)}
   .oact button.pri{background:var(--ok);color:#04140A;border-color:var(--ok)}
 
+  .zonaperigo{display:none;margin:8px 0 24px;padding-top:16px;border-top:1px solid var(--soft)}
+  .zonaperigo.on{display:block}
+  .zonaperigo button{width:100%;padding:12px;border-radius:5px;font-size:13px;
+    font-weight:600;cursor:pointer;font-family:var(--sans);
+    background:#1A0C0B;color:var(--def);border:1px solid #3A1A18}
   .hint{font-size:12.5px;color:var(--faint);line-height:1.55;padding:14px;
     background:var(--surface);border:1px solid var(--soft);border-radius:6px;margin:18px 0 26px}
   .hint b{color:var(--dim)}
@@ -147,6 +184,8 @@
   .htop input{flex:1}
   .hbtn{background:var(--raised);border:1px solid var(--line);color:var(--dim);
     border-radius:4px;padding:11px 13px;font-size:13px;cursor:pointer;font-family:var(--sans);white-space:nowrap}
+  .hnovo{background:#0C1620;color:var(--info);border-color:#1F3A52;font-weight:700}
+  .hnovo:active{transform:scale(.99)}
   .card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:13px;margin-bottom:10px}
   .ctop{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
   .cos{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--info)}
@@ -165,6 +204,12 @@
   .cact button{flex:1;padding:9px;border-radius:4px;font-size:12.5px;font-weight:600;
     cursor:pointer;font-family:var(--sans);background:var(--raised);color:var(--txt);border:1px solid var(--line)}
   .cact button.del{flex:0 0 auto;padding:9px 12px;color:var(--def);border-color:#3A1A18;background:#1A0C0B}
+  .vlist{margin-top:8px}
+  .vrow{display:flex;align-items:center;gap:8px;padding:8px 0;
+    border-top:1px solid var(--soft);font-size:12.5px;color:var(--dim)}
+  .vrow span{flex:1;font-family:var(--mono);font-size:11.5px}
+  .vrow button{padding:7px 11px;border-radius:4px;font-size:12px;cursor:pointer;
+    font-family:var(--sans);background:var(--raised);color:var(--txt);border:1px solid var(--line)}
   .vazio{text-align:center;color:var(--faint);padding:48px 20px;font-size:14px;line-height:1.6}
 
   .lb{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.94);display:none;
@@ -268,6 +313,10 @@
 
     <div class="sechead"><span>Fotos</span><b>interno</b></div>
     <div class="fotos" id="fotos"></div>
+    <div class="fedit" id="fedit">
+      <input type="text" id="fedittxt" placeholder="Legenda da foto (livre)">
+      <button id="feditok">OK</button>
+    </div>
 
     <label class="toggle">
       <input type="checkbox" id="eletr">
@@ -291,12 +340,23 @@
     Tudo é salvo automaticamente no histórico.
   </div>
 
+  <div class="perigo" id="perigo">
+    <p>Este checklist está salvo no histórico. A exclusão é permanente e apaga também as fotos.</p>
+    <button id="excluir">Excluir este checklist</button>
+  </div>
+
+  <div class="zonaperigo" id="zp">
+    <button id="excluir">Excluir este checklist</button>
+  </div>
+
   <div class="out" id="out">
     <label class="lbl">Resumo — cole no rascunho do orçamento</label>
     <textarea id="txt" readonly></textarea>
     <div class="oact">
       <button class="pri" id="cp">Copiar resumo</button>
-      <button id="novo">Novo checklist</button>
+      <button id="share">Compartilhar</button>
+      <button id="dup">Outro aparelho</button>
+      <button id="novo">Novo</button>
     </div>
   </div>
 </div>
@@ -304,6 +364,7 @@
 <div class="view" id="vHist">
   <div class="htop">
     <input type="text" id="busca" placeholder="Buscar por OS, cliente, modelo ou serial">
+    <button class="hbtn hnovo" id="hnovo">+ Novo</button>
     <button class="hbtn" id="bkp">Backup</button>
   </div>
   <div id="cards"></div>
@@ -318,7 +379,7 @@
   </div>
 </footer>
 
-<div class="lb" id="lb"><img id="lbimg" alt=""><button id="lbx">Fechar</button></div>
+<div class="lb" id="lb"><img id="lbimg" alt=""><button id="lbx">Fechar</button><button id="lbd" style="right:auto;left:14px">Baixar</button></div>
 
 <script>
 (function(){
@@ -398,7 +459,6 @@
   var FONTE_EXT="x360fat,x360slim,xonefat";
   var FONTE_INT=PS3+","+PS4+","+PS5+",xones,xonex,"+XSER;
   var COM_AV=PS3+","+X360;
-  var COM_OPTICA=PS3+","+PS4+","+X360+","+XONE;
   var COM_WIFI=PS3+","+PS4+","+PS5+",x360slim,"+XONE+","+XSER;
 
   /* neg:true  => a resposta esperada e NAO (grupos de constatacao)
@@ -427,8 +487,7 @@
       {id:"hdmi",  n:"Tem imagem pelo HDMI?",          d:"",                                             c:"*"},
       {id:"av",    n:"Tem imagem pela saída AV?",      d:"Saída analógica",                              c:COM_AV},
       {id:"hdin",  n:"Entrada HDMI funciona?",         d:"HDMI IN — quase sempre esquecido",             c:XONE},
-      {id:"som",   n:"Tem áudio pelo HDMI?",           d:"",                                             c:"*"},
-      {id:"opt",   n:"Saída óptica funciona?",         d:"",                                             c:COM_OPTICA}
+      {id:"som",   n:"Tem áudio pelo HDMI?",           d:"",                                             c:"*"}
     ]},
     { nome:"Armazenamento", sub:"", itens:[
       {id:"reco",  n:"Reconhece o disco?",             d:"",                                             c:"*"},
@@ -489,7 +548,10 @@
   var CAMPOS=["#os","#cli","#tel","#rel","#ace","#mod","#ser","#hdm","#hds"];
 
   var estado={}, visiveis=[], fotos=[], idAtual=null, carregando=false;
+  var lbAtual=null, snapshot=null, jaVersionou=false;
   var $=function(s){return document.querySelector(s);};
+  function on(sel,ev,fn){ var el=$(sel); if(el) el.addEventListener(ev,fn);
+                          else console.warn("elemento nao encontrado:",sel); }
   var tipo=$("#tipo"),lista=$("#lista"),lamp=$("#lamp"),fill=$("#fill"),sub=$("#sub"),
       gen=$("#gen"),fstat=$("#fstat"),out=$("#out"),txt=$("#txt"),
       ctrl=$("#ctrl"),eletr=$("#eletr"),nav=$("#nav"),
@@ -515,9 +577,22 @@
       var e=estado[i.id];
       if(e.v||e.nota||e.val) reg.estado[i.id]={v:e.v,nota:e.nota,val:e.val};
     });
+    $("#zp").classList.add("on");
     var ix=arr.findIndex(function(r){return r.id===idAtual;});
-    if(ix>-1){ reg.criado=arr[ix].criado; arr[ix]=reg; }
-    else { reg.criado=Date.now(); arr.unshift(reg); }
+    if(ix>-1){
+      reg.criado=arr[ix].criado;
+      reg.versoes=(arr[ix].versoes||[]).slice();
+      /* na primeira alteracao de um checklist reaberto, guarda a versao anterior */
+      if(snapshot && !jaVersionou){
+        var ant=JSON.parse(JSON.stringify(snapshot));
+        delete ant.versoes;
+        reg.versoes.push(ant);
+        if(reg.versoes.length>10) reg.versoes.shift();
+        jaVersionou=true;
+      }
+      arr[ix]=reg;
+    }
+    else { reg.criado=Date.now(); reg.versoes=[]; arr.unshift(reg); }
     gravar(arr);
   }
   function aplica(c,t){ return c==="*"||c.split(",").indexOf(t)>-1; }
@@ -637,7 +712,8 @@
     fotos.forEach(function(f){
       var d=document.createElement("div");
       d.className="foto";
-      d.innerHTML='<img data-ver="'+f.id+'" alt="'+f.rot+'"><b>'+f.rot+'</b><i data-del="'+f.id+'">×</i>';
+      d.innerHTML='<img data-ver="'+f.id+'" alt="'+f.rot+'"><b>'+f.rot+'</b>'+
+                  '<i data-del="'+f.id+'">×</i><u data-baixar="'+f.id+'" title="Baixar">&#8595;</u>';
       elFotos.appendChild(d);
       fotoLer(f.id).then(function(r){ if(r) d.querySelector("img").src=r.dados; });
     });
@@ -648,8 +724,10 @@
   }
   elFotos.addEventListener("click",function(e){
     var v=e.target.closest("[data-ver]");
-    if(v){ fotoLer(v.dataset.ver).then(function(r){
+    if(v){ lbAtual=v.dataset.ver; fotoLer(v.dataset.ver).then(function(r){
         if(r){ $("#lbimg").src=r.dados; $("#lb").classList.add("on"); } }); return; }
+    var b=e.target.closest("[data-baixar]");
+    if(b){ baixarFoto(b.dataset.baixar); return; }
     var d=e.target.closest("[data-del]");
     if(d){ if(!confirm("Remover esta foto?")) return;
       fotoApagar(d.dataset.del).then(function(){
@@ -657,13 +735,31 @@
         pintaFotos(); salvar(); }); return; }
     if(e.target.closest("#addf")) novaFoto();
   });
-  $("#lbx").addEventListener("click",function(){ $("#lb").classList.remove("on"); });
-  $("#lb").addEventListener("click",function(e){ if(e.target===this) this.classList.remove("on"); });
+  on("#lbx","click",function(){ $("#lb").classList.remove("on"); });
+  on("#lbd","click",function(){ if(lbAtual) baixarFoto(lbAtual); });
+  on("#lb","click",function(e){ if(e.target===this) this.classList.remove("on"); });
+
+  function nomeArq(txt){
+    return (txt||"foto").normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+      .replace(/[^a-zA-Z0-9\- ]/g,"").replace(/\s+/g,"-").slice(0,40) || "foto";
+  }
+  function baixarFoto(id){
+    var f=fotos.filter(function(x){return x.id===id;})[0];
+    fotoLer(id).then(function(r){
+      if(!r) return;
+      var os=$("#os").value.trim(), cli=$("#cli").value.trim();
+      var nome=[os?"OS"+os:"", nomeArq(cli), nomeArq(f?f.rot:"foto")]
+        .filter(Boolean).join("_")+".jpg";
+      var a=document.createElement("a");
+      a.href=r.dados; a.download=nome;
+      document.body.appendChild(a); a.click(); a.remove();
+    });
+  }
 
   function novaFoto(){
-    var rot=prompt("Legenda da foto:\n(ex.: carcaça, HD, placa, defeito)","");
+    var rot=prompt("Legenda da foto (pode usar espaços e acentos):","");
     if(rot===null) return;
-    rot=(rot||"foto").trim().slice(0,18);
+    rot=(rot||"foto").trim().slice(0,60);
     var inp=document.createElement("input");
     inp.type="file"; inp.accept="image/*"; inp.setAttribute("capture","environment");
     inp.onchange=function(){
@@ -680,69 +776,82 @@
   }
 
   /* ============ resumo ============ */
-  function gerar(){
-    var t=tipo.value,L=[];
-    L.push("CHECKLIST DE BANCADA — "+NOMES[t]);
-    if($("#os").value.trim())  L.push("OS: "+$("#os").value.trim());
-    if($("#cli").value.trim()) L.push("Cliente: "+$("#cli").value.trim());
-    if($("#tel").value.trim()) L.push("Telefone: "+$("#tel").value.trim());
-    L.push("Data: "+new Date().toLocaleDateString("pt-BR"));
-    if($("#ace").value.trim()) L.push("Acessórios: "+$("#ace").value.trim());
-    L.push("");
-    var rel=$("#rel").value.trim();
-    if(rel){ L.push("DEFEITO RELATADO");
-      rel.split("\n").forEach(function(x){ if(x.trim()) L.push("  "+x.trim()); });
-      L.push(""); }
+  /* monta o texto do resumo a partir de um REGISTRO salvo */
+  function textoResumo(r){
+    var t=r.tipo, L=[], cat={}, neg={};
+    GRUPOS.concat([ELETRICO,CTRLG]).forEach(function(g){
+      g.itens.forEach(function(i){ cat[i.id]=i; neg[i.id]=!!g.neg; });
+    });
+    var lp=function(x){ return x.replace(/\?$/,""); };
+    var pres=Object.keys(r.estado||{}).filter(function(k){ return cat[k]; });
 
-    var ach=visiveis.filter(function(i){return i.neg && estado[i.id].v==="sim";});
-    var def=visiveis.filter(function(i){return !i.neg && estado[i.id].v==="nao";});
-    var ok =visiveis.filter(function(i){return !i.neg && estado[i.id].v==="sim";});
-    var blq=visiveis.filter(function(i){return estado[i.id].v==="blq";});
-    var lp=function(s){ return s.replace(/\?$/,""); };
+    L.push("CHECKLIST DE BANCADA — "+(NOMES[t]||t));
+    if(r.os)  L.push("OS: "+r.os);
+    if(r.cli) L.push("Cliente: "+r.cli);
+    if(r.tel) L.push("Telefone: "+r.tel);
+    L.push("Data: "+dataBr(r.alterado||r.criado||Date.now()));
+    if(r.ace) L.push("Acessórios: "+r.ace);
+    L.push("");
+    if(r.rel){
+      L.push("DEFEITO RELATADO");
+      r.rel.split("\n").forEach(function(x){ if(x.trim()) L.push("  "+x.trim()); });
+      L.push("");
+    }
+    var ach=pres.filter(function(k){ return  neg[k] && r.estado[k].v==="sim"; });
+    var def=pres.filter(function(k){ return !neg[k] && r.estado[k].v==="nao"; });
+    var ok =pres.filter(function(k){ return !neg[k] && r.estado[k].v==="sim"; });
+    var blq=pres.filter(function(k){ return r.estado[k].v==="blq"; });
 
     if(ach.length){
       L.push("CONSTATADO NA INSPEÇÃO ("+ach.length+")");
-      ach.forEach(function(i){ L.push("  - "+lp(i.n)+(estado[i.id].nota?": "+estado[i.id].nota:"")); });
+      ach.forEach(function(k){ L.push("  - "+lp(cat[k].n)+(r.estado[k].nota?": "+r.estado[k].nota:"")); });
       L.push("");
     }
     if(def.length){
       L.push("DEFEITOS ENCONTRADOS ("+def.length+")");
-      def.forEach(function(i){
-        var e=estado[i.id],ex=[];
+      def.forEach(function(k){
+        var e=r.estado[k],ex=[];
         if(e.val) ex.push(e.val);
         if(e.nota) ex.push(e.nota);
-        L.push("  - "+lp(i.n)+(ex.length?": "+ex.join(" — "):""));
+        L.push("  - "+lp(cat[k].n)+(ex.length?": "+ex.join(" — "):""));
       });
     } else L.push("DEFEITOS ENCONTRADOS: nenhum");
     L.push("");
     L.push("TESTADO E OK ("+ok.length+")");
-    L.push("  "+(ok.length?ok.map(function(i){
-      return lp(i.n)+(estado[i.id].val?" ("+estado[i.id].val+")":"");
+    L.push("  "+(ok.length?ok.map(function(k){
+      return lp(cat[k].n)+(r.estado[k].val?" ("+r.estado[k].val+")":"");
     }).join(" | "):"—"));
     if(blq.length){
       L.push("");
       L.push("*** NAO FOI POSSIVEL TESTAR ("+blq.length+") ***");
-      L.push("  "+blq.map(function(i){return lp(i.n);}).join(" | "));
+      L.push("  "+blq.map(function(k){return lp(cat[k].n);}).join(" | "));
       L.push("");
       L.push("  >> RETESTAR TODOS ESSES PONTOS APOS O REPARO.");
       L.push("  >> Pode haver defeito empilhado atras do defeito principal.");
     }
     var ints=[];
-    if($("#mod").value.trim()) ints.push("Modelo do console: "+$("#mod").value.trim());
-    if($("#ser").value.trim()) ints.push("Serial do console: "+$("#ser").value.trim());
-    if($("#hdm").value.trim()) ints.push("Modelo do HD/SSD: "+$("#hdm").value.trim());
-    if($("#hds").value.trim()) ints.push("Serial do HD/SSD: "+$("#hds").value.trim());
-    if(fotos.length) ints.push("Fotos anexadas: "+fotos.map(function(f){return f.rot;}).join(", "));
+    if(r.mod) ints.push("Modelo do console: "+r.mod);
+    if(r.ser) ints.push("Serial do console: "+r.ser);
+    if(r.hdm) ints.push("Modelo do HD/SSD: "+r.hdm);
+    if(r.hds) ints.push("Serial do HD/SSD: "+r.hds);
+    if(r.fotos&&r.fotos.length) ints.push("Fotos anexadas: "+r.fotos.map(function(f){return f.rot;}).join(", "));
     if(ints.length){
       L.push("");
       L.push("--- DADOS INTERNOS (não enviar ao cliente) ---");
       ints.forEach(function(x){ L.push("  "+x); });
     }
     L.push("");
-    L.push("— verificados "+visiveis.length+" pontos —");
-    txt.value=L.join("\n");
-    out.classList.add("show");
+    L.push("— verificados "+pres.length+" pontos —");
+    return L.join("\n");
+  }
+
+  function gerar(){
     salvar();
+    var reg=ler().filter(function(x){return x.id===idAtual;})[0];
+    if(!reg) return;
+    txt.value=textoResumo(reg);
+    var bd=$("#dup"); if(bd) bd.style.display = idAtual ? "" : "none";
+    out.classList.add("show");
     out.scrollIntoView({behavior:"smooth",block:"start"});
   }
 
@@ -791,28 +900,54 @@
         (r.cli?'<div class="ccli">'+r.cli+'</div>':'')+
         '<div class="cbadges">'+bd+'</div>'+
         '<div class="cact"><button data-ab="'+r.id+'">Abrir</button>'+
-          '<button class="del" data-ex="'+r.id+'">Excluir</button></div>';
+          '<button data-dup="'+r.id+'">Duplicar</button>'+
+          ((r.versoes&&r.versoes.length)
+            ? '<button data-vs="'+r.id+'">Versões ('+r.versoes.length+')</button>' : '')+
+          '</div>'+
+        '<div class="vlist" id="vl_'+r.id+'"></div>';
       cards.appendChild(el);
     });
   }
   cards.addEventListener("click",function(e){
     var a=e.target.closest("button[data-ab]");
     if(a){ abrir(a.dataset.ab); return; }
-    var x=e.target.closest("button[data-ex]");
-    if(x){
-      if(!confirm("Excluir este checklist? As fotos também serão apagadas.")) return;
-      var r=ler().filter(function(y){return y.id===x.dataset.ex;})[0];
-      if(r&&r.fotos) r.fotos.forEach(function(f){ fotoApagar(f.id); });
-      gravar(ler().filter(function(y){return y.id!==x.dataset.ex;}));
-      if(idAtual===x.dataset.ex) idAtual=null;
-      pintaHist();
+
+    var dp=e.target.closest("button[data-dup]");
+    if(dp){ duplicar(dp.dataset.dup); return; }
+
+    var v=e.target.closest("button[data-vs]");
+    if(v){
+      var box=$("#vl_"+v.dataset.vs);
+      if(box.innerHTML){ box.innerHTML=""; return; }
+      var reg=ler().filter(function(y){return y.id===v.dataset.vs;})[0];
+      if(!reg||!reg.versoes) return;
+      var h="";
+      reg.versoes.slice().reverse().forEach(function(vr,ix){
+        var n=reg.versoes.length-ix;
+        h+='<div class="vrow"><span>Versão '+n+' — '+dataBr(vr.alterado||vr.criado)+'</span>'+
+           '<button data-vr="'+v.dataset.vs+'" data-ix="'+(reg.versoes.length-1-ix)+'">Ver resumo</button></div>';
+      });
+      box.innerHTML=h;
+      return;
+    }
+
+    var vr=e.target.closest("button[data-vr]");
+    if(vr){
+      var reg2=ler().filter(function(y){return y.id===vr.dataset.vr;})[0];
+      if(!reg2) return;
+      var antiga=reg2.versoes[parseInt(vr.dataset.ix,10)];
+      if(!antiga) return;
+      alert(textoResumo(antiga));
+      return;
     }
   });
   busca.addEventListener("input",pintaHist);
+  on("#hnovo","click",function(){ novoChecklist(); verChk(); });
 
   function abrir(id){
     var r=ler().filter(function(x){return x.id===id;})[0]; if(!r) return;
     carregando=true; idAtual=r.id;
+    snapshot=JSON.parse(JSON.stringify(r)); jaVersionou=false;
     tipo.value=r.tipo; eletr.checked=!!r.eletr; ctrl.checked=!!r.ctrl;
     montar();
     CAMPOS.forEach(function(s){ $(s).value=r[s.slice(1)]||""; });
@@ -821,7 +956,8 @@
       var g=r.estado[i.id];
       if(g){ estado[i.id]={v:g.v||null,nota:g.nota||"",val:g.val||""}; pinta(i.id); }
     });
-    carregando=false; atualiza(); verChk(); window.scrollTo({top:0});
+    carregando=false; atualiza(); $("#zp").classList.add("on");
+    verChk(); window.scrollTo({top:0});
   }
 
   function verChk(){
@@ -842,7 +978,7 @@
     if(vHist.classList.contains("on")) verChk(); else verHist();
   });
 
-  $("#bkp").addEventListener("click",function(){
+  on("#bkp","click",function(){
     var o=prompt("Digite:\n1 = baixar backup (checklists + fotos)\n2 = restaurar backup de um arquivo");
     if(o==="1"){
       fotosTodas().then(function(fs){
@@ -881,25 +1017,57 @@
     }
   });
 
+  /* Duplicar: mantem cliente/contato, zera o que e de cada aparelho */
+  function duplicar(id){
+    var r=ler().filter(function(x){return x.id===id;})[0];
+    if(!r) return;
+    var novo={
+      id:"c"+Date.now()+Math.floor(Math.random()*900+100),
+      tipo:r.tipo, eletr:!!r.eletr, ctrl:!!r.ctrl,
+      os:r.os||"", cli:r.cli||"", tel:r.tel||"", rel:r.rel||"",
+      ace:"", mod:"", ser:"", hdm:"", hds:"",
+      estado:{}, fotos:[], versoes:[],
+      criado:Date.now(), alterado:Date.now()
+    };
+    var arr=ler(); arr.unshift(novo); gravar(arr);
+    abrir(novo.id);
+  }
+
+  function novoChecklist(){
+    idAtual=null; carregando=true; fotos=[]; snapshot=null; jaVersionou=false;
+    CAMPOS.forEach(function(s2){$(s2).value="";});
+    tipo.value="";eletr.checked=false;ctrl.checked=false;
+    montar();pintaFotos();carregando=false;
+    $("#zp").classList.remove("on");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  on("#excluir","click",function(){
+    if(!idAtual) return;
+    var reg=ler().filter(function(x){return x.id===idAtual;})[0];
+    var qtd=reg&&reg.fotos?reg.fotos.length:0;
+    if(!confirm("Excluir este checklist"+(qtd?" e suas "+qtd+" foto(s)":"")+"?\n\nEsta ação não pode ser desfeita.")) return;
+    if(!confirm("Confirma mesmo a exclusão?")) return;
+    if(reg&&reg.fotos) reg.fotos.forEach(function(f){ fotoApagar(f.id); });
+    gravar(ler().filter(function(x){return x.id!==idAtual;}));
+    novoChecklist();
+    alert("Checklist excluído.");
+  });
+
   tipo.addEventListener("change",function(){montar();salvar();});
   ctrl.addEventListener("change",function(){montar();salvar();});
   eletr.addEventListener("change",function(){montar();salvar();});
   gen.addEventListener("click",gerar);
 
-  $("#cp").addEventListener("click",function(){
+  on("#cp","click",function(){
     txt.select();txt.setSelectionRange(0,999999);
     var b=this,o=b.textContent;
     try{document.execCommand("copy");b.textContent="Copiado";}
     catch(e){b.textContent="Selecione e copie";}
     setTimeout(function(){b.textContent=o;},1600);
   });
-  $("#novo").addEventListener("click",function(){
-    idAtual=null;carregando=true;fotos=[];
-    CAMPOS.forEach(function(s){$(s).value="";});
-    tipo.value="";eletr.checked=false;ctrl.checked=false;
-    montar();pintaFotos();carregando=false;
-    window.scrollTo({top:0,behavior:"smooth"});
-  });
+  on("#novo","click",novoChecklist);
+  on("#dup","click",function(){ if(idAtual) duplicar(idAtual); });
 
   pintaFotos();
   atualiza();
