@@ -345,10 +345,6 @@
     <button id="excluir">Excluir este checklist</button>
   </div>
 
-  <div class="zonaperigo" id="zp">
-    <button id="excluir">Excluir este checklist</button>
-  </div>
-
   <div class="out" id="out">
     <label class="lbl">Resumo — cole no rascunho do orçamento</label>
     <textarea id="txt" readonly></textarea>
@@ -577,7 +573,7 @@
       var e=estado[i.id];
       if(e.v||e.nota||e.val) reg.estado[i.id]={v:e.v,nota:e.nota,val:e.val};
     });
-    $("#zp").classList.add("on");
+    $("#perigo").classList.add("show");
     var ix=arr.findIndex(function(r){return r.id===idAtual;});
     if(ix>-1){
       reg.criado=arr[ix].criado;
@@ -956,7 +952,7 @@
       var g=r.estado[i.id];
       if(g){ estado[i.id]={v:g.v||null,nota:g.nota||"",val:g.val||""}; pinta(i.id); }
     });
-    carregando=false; atualiza(); $("#zp").classList.add("on");
+    carregando=false; atualiza(); $("#perigo").classList.add("show");
     verChk(); window.scrollTo({top:0});
   }
 
@@ -1038,7 +1034,7 @@
     CAMPOS.forEach(function(s2){$(s2).value="";});
     tipo.value="";eletr.checked=false;ctrl.checked=false;
     montar();pintaFotos();carregando=false;
-    $("#zp").classList.remove("on");
+    $("#perigo").classList.remove("show");
     window.scrollTo({top:0,behavior:"smooth"});
   }
 
