@@ -3,7 +3,7 @@
    Ao alterar o index.html, troque o numero da versao abaixo
    (ex.: v1 -> v2) para o celular buscar a versao nova. */
 
-const VERSAO = "checklist-v10";
+const VERSAO = "checklist-v11";
 
 const ARQUIVOS = [
   "./",
