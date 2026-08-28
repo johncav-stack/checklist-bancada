@@ -212,6 +212,17 @@
     font-family:var(--sans);background:var(--raised);color:var(--txt);border:1px solid var(--line)}
   .vazio{text-align:center;color:var(--faint);padding:48px 20px;font-size:14px;line-height:1.6}
 
+  .modal{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.8);
+    display:none;align-items:center;justify-content:center;padding:22px}
+  .modal.on{display:flex}
+  .mbox{background:var(--surface);border:1px solid var(--line);border-radius:8px;
+    padding:20px;max-width:420px;width:100%}
+  .mbox p{margin:0 0 18px;font-size:15px;line-height:1.5;color:var(--txt);white-space:pre-line}
+  .mact{display:flex;gap:10px}
+  .mact button{flex:1;padding:13px;border-radius:5px;font-size:14px;font-weight:600;
+    cursor:pointer;font-family:var(--sans);background:var(--raised);
+    color:var(--txt);border:1px solid var(--line)}
+  .mact button#mok{background:#2A0E0C;color:var(--def);border-color:#4A211E}
   .lb{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.94);display:none;
     align-items:center;justify-content:center;padding:16px}
   .lb.on{display:flex}
@@ -278,6 +289,15 @@
       <optgroup label="Xbox Series">
         <option value="xss">Xbox Series S</option>
         <option value="xsx">Xbox Series X</option>
+      </optgroup>
+      <optgroup label="Controles (avulsos)">
+        <option value="ct_ds3">Controle PS3 — DualShock 3</option>
+        <option value="ct_ds4">Controle PS4 — DualShock 4</option>
+        <option value="ct_ds5">Controle PS5 — DualSense</option>
+        <option value="ct_edge">Controle PS5 — DualSense Edge</option>
+        <option value="ct_x360">Controle Xbox 360</option>
+        <option value="ct_xone">Controle Xbox One</option>
+        <option value="ct_xser">Controle Xbox Series</option>
       </optgroup>
     </select>
 
@@ -374,6 +394,16 @@
     <button class="gen" id="gen" disabled>Gerar resumo</button>
   </div>
 </footer>
+
+<div class="modal" id="modal">
+  <div class="mbox">
+    <p id="mtxt"></p>
+    <div class="mact">
+      <button id="mcancel">Cancelar</button>
+      <button id="mok">Confirmar</button>
+    </div>
+  </div>
+</div>
 
 <div class="lb" id="lb"><img id="lbimg" alt=""><button id="lbx">Fechar</button><button id="lbd" style="right:auto;left:14px">Baixar</button></div>
 
@@ -532,6 +562,73 @@
     {id:"c_caps",n:"Capas dos analógicos íntegras?",d:"Desgaste, folga",                c:"*"}
   ]};
 
+  /* ---------- CONTROLES AVULSOS ---------- */
+  var CT_TODOS="ct_ds3,ct_ds4,ct_ds5,ct_edge,ct_x360,ct_xone,ct_xser";
+  var CT_PS="ct_ds3,ct_ds4,ct_ds5,ct_edge";
+  var CT_XB="ct_x360,ct_xone,ct_xser";
+  var CT_TOUCH="ct_ds4,ct_ds5,ct_edge";
+  var CT_DUAL5="ct_ds5,ct_edge";
+  var CT_PILHA="ct_x360,ct_xone,ct_xser";
+  var CT_FONE="ct_ds4,ct_ds5,ct_edge,ct_xone,ct_xser";
+  var CT_MOV="ct_ds3,ct_ds4,ct_ds5,ct_edge";
+
+  var GRUPOS_CT=[
+    { nome:"Recepção", sub:"antes de abrir", neg:true, itens:[
+      {id:"k_carc", n:"Avarias na carcaça?",           d:"Trincas, folga, peça faltando",            c:CT_TODOS},
+      {id:"k_queda",n:"Sinais de queda ou impacto?",   d:"Amassado, encaixe forçado",                c:CT_TODOS},
+      {id:"k_abriu",n:"Sinais de abertura anterior?",  d:"Parafuso espanado, marca de chave",        c:CT_TODOS},
+      {id:"k_suj",  n:"Sujeira ou contaminação?",      d:"Líquido, gordura, resíduo",                c:CT_TODOS}
+    ]},
+    { nome:"Inspeção interna", sub:"depois de abrir", neg:true, itens:[
+      {id:"k_oxid", n:"Oxidação na placa?",            d:"Comum por suor e líquido derramado",       c:CT_TODOS},
+      {id:"k_interv",n:"Intervenção anterior?",        d:"Solda refeita, cola, peça trocada",        c:CT_TODOS},
+      {id:"k_dano", n:"Componentes danificados?",      d:"Estourado, quebrado, ausente",             c:CT_TODOS},
+      {id:"k_flats",n:"Flats ou conectores avariados?",d:"Rasgado, solto, trilha rompida",           c:CT_TODOS},
+      {id:"k_pelic",n:"Película condutiva gasta?",     d:"Membrana dos botões",                      c:CT_TODOS}
+    ]},
+    { nome:"Alimentação e carga", sub:"", itens:[
+      {id:"k_liga", n:"Liga?",                         d:"",                                          c:CT_TODOS},
+      {id:"k_usb",  n:"Conector de carga funciona?",   d:"Carrega e comunica por cabo",              c:CT_TODOS},
+      {id:"k_firme",n:"Conector firme na placa?",      d:"Sem folga ao mexer o cabo",                c:CT_TODOS},
+      {id:"k_bat",  n:"Bateria segura carga?",         d:"Testar tempo de uso",                      c:CT_PS,   val:"Tensão / autonomia observada"},
+      {id:"k_pilha",n:"Compartimento de pilhas OK?",   d:"Contatos e mola",                          c:CT_PILHA}
+    ]},
+    { nome:"Analógicos", sub:"", itens:[
+      {id:"k_anae", n:"Analógico esquerdo sem drift?", d:"Testar os dois eixos",                     c:CT_TODOS},
+      {id:"k_anad", n:"Analógico direito sem drift?",  d:"Testar os dois eixos",                     c:CT_TODOS},
+      {id:"k_l3r3", n:"L3 e R3 funcionam?",            d:"Clique dos analógicos",                    c:CT_TODOS},
+      {id:"k_caps", n:"Capas dos analógicos íntegras?",d:"Desgaste, folga, rasgo",                   c:CT_TODOS}
+    ]},
+    { nome:"Botões e gatilhos", sub:"", itens:[
+      {id:"k_acao", n:"Botões de ação funcionam?",     d:"Todos, um a um",                           c:CT_TODOS},
+      {id:"k_dir",  n:"Direcional funciona?",          d:"As quatro direções",                       c:CT_TODOS},
+      {id:"k_l1r1", n:"L1 e R1 funcionam?",            d:"",                                          c:CT_PS},
+      {id:"k_lbrb", n:"LB e RB funcionam?",            d:"",                                          c:CT_XB},
+      {id:"k_l2r2", n:"L2 e R2 funcionam?",            d:"Curso completo, sem falha",                c:CT_PS},
+      {id:"k_ltrt", n:"LT e RT funcionam?",            d:"Curso completo, sem falha",                c:CT_XB},
+      {id:"k_sist", n:"Botões de sistema funcionam?",  d:"Share, options, menu, view",               c:CT_TODOS},
+      {id:"k_home", n:"Botão central funciona?",       d:"PS / Guide / Xbox",                        c:CT_TODOS},
+      {id:"k_trava",n:"Nenhum botão travando?",        d:"Afundado ou sem retorno",                  c:CT_TODOS},
+      {id:"k_pad",  n:"Botões traseiros funcionam?",   d:"Paddles",                                  c:"ct_edge"}
+    ]},
+    { nome:"Funções", sub:"", itens:[
+      {id:"k_vib",  n:"Vibração funciona?",            d:"Os dois motores",                          c:CT_TODOS},
+      {id:"k_touch",n:"Touchpad funciona?",            d:"Toque e clique",                           c:CT_TOUCH},
+      {id:"k_gat",  n:"Gatilhos adaptativos funcionam?",d:"Resistência variável",                    c:CT_DUAL5},
+      {id:"k_alto", n:"Alto-falante funciona?",        d:"",                                          c:CT_TOUCH},
+      {id:"k_mic",  n:"Microfone funciona?",           d:"",                                          c:CT_DUAL5},
+      {id:"k_mute", n:"Botão mute funciona?",          d:"",                                          c:CT_DUAL5},
+      {id:"k_fone", n:"Saída de fone funciona?",       d:"Testar com fone",                          c:CT_FONE},
+      {id:"k_luz",  n:"Iluminação funciona?",          d:"Barra de luz / anel do botão",             c:CT_TODOS},
+      {id:"k_mov",  n:"Sensor de movimento funciona?", d:"Giroscópio",                               c:CT_MOV}
+    ]},
+    { nome:"Conectividade", sub:"", itens:[
+      {id:"k_par",  n:"Pareia sem fio?",               d:"",                                          c:CT_TODOS},
+      {id:"k_dist", n:"Mantém conexão a distância?",   d:"Testar a alguns metros",                   c:CT_TODOS},
+      {id:"k_cabo", n:"Funciona por cabo?",            d:"",                                          c:CT_TODOS}
+    ]}
+  ];
+
   var NOMES={
     ps3fat:"PlayStation 3 Fat", ps3slim:"PlayStation 3 Slim", ps3ss:"PlayStation 3 Super Slim",
     ps4fat:"PlayStation 4 Fat", ps4slim:"PlayStation 4 Slim", ps4pro:"PlayStation 4 Pro",
@@ -539,7 +636,11 @@
     ps5s:"PlayStation 5 Slim", ps5sd:"PlayStation 5 Slim Digital",
     x360fat:"Xbox 360 Fat", x360slim:"Xbox 360 Slim / E",
     xonefat:"Xbox One Fat", xones:"Xbox One S", xonex:"Xbox One X",
-    xss:"Xbox Series S", xsx:"Xbox Series X"
+    xss:"Xbox Series S", xsx:"Xbox Series X",
+    ct_ds3:"Controle DualShock 3 (PS3)", ct_ds4:"Controle DualShock 4 (PS4)",
+    ct_ds5:"Controle DualSense (PS5)",   ct_edge:"Controle DualSense Edge (PS5)",
+    ct_x360:"Controle Xbox 360",         ct_xone:"Controle Xbox One",
+    ct_xser:"Controle Xbox Series"
   };
   var CAMPOS=["#os","#cli","#tel","#rel","#ace","#mod","#ser","#hdm","#hds"];
 
@@ -553,6 +654,16 @@
       ctrl=$("#ctrl"),eletr=$("#eletr"),nav=$("#nav"),
       vChk=$("#vChk"),vHist=$("#vHist"),cards=$("#cards"),busca=$("#busca"),
       elFotos=$("#fotos");
+
+  /* confirmacao propria — nao depende do confirm() do navegador */
+  var _okFn=null;
+  function pergunta(texto,aoConfirmar){
+    var m=$("#modal");
+    if(!m){ if(confirm(texto)) aoConfirmar(); return; }
+    $("#mtxt").textContent=texto;
+    _okFn=aoConfirmar;
+    m.classList.add("on");
+  }
 
   function ler(){ try{return JSON.parse(localStorage.getItem(CHAVE))||[];}catch(e){return [];} }
   function gravar(a){ try{localStorage.setItem(CHAVE,JSON.stringify(a));return true;}catch(e){return false;} }
@@ -601,16 +712,39 @@
     return v===bom ? "g" : "r";
   }
 
+  function ajustaTela(t){
+    var ehCtrl = t && t.indexOf("ct_")===0;
+    var lblMod = document.querySelector('label[for="mod"]');
+    var lblSer = document.querySelector('label[for="ser"]');
+    if(lblMod) lblMod.textContent = ehCtrl ? "Modelo do controle" : "Modelo do console";
+    if(lblSer) lblSer.textContent = ehCtrl ? "Serial do controle" : "Serial do console";
+    var m=$("#mod"); if(m) m.placeholder = ehCtrl ? "CUH-ZCT2 / 1708" : "CUH-2015A";
+    // bloco do HD nao se aplica a controle
+    var hd=$("#hdm"); if(hd){
+      var linhaHD = hd.closest(".row2");
+      if(linhaHD) linhaHD.style.display = ehCtrl ? "none" : "";
+    }
+    // opcoes que so valem para console
+    var tgE=$("#eletr"), tgC=$("#ctrl");
+    if(tgE){ var le=tgE.closest("label"); if(le) le.style.display = ehCtrl ? "none" : ""; }
+    if(tgC){ var lc=tgC.closest("label"); if(lc) lc.style.display = ehCtrl ? "none" : ""; }
+    if(ehCtrl){ if(tgE) tgE.checked=false; if(tgC) tgC.checked=false; }
+  }
+
   function montar(){
     var t=tipo.value;
+    ajustaTela(t);
     lista.innerHTML="";estado={};visiveis=[];
     out.classList.remove("show");
     if(!t){ sub.textContent="Selecione o equipamento"; $("#hint").style.display="none"; atualiza(); return; }
     sub.textContent=NOMES[t]; $("#hint").style.display="block";
 
-    var grupos=GRUPOS.slice();
-    if(eletr.checked) grupos.splice(2,0,ELETRICO);
-    if(ctrl.checked)  grupos.push(CTRLG);
+    var ehCtrl = t.indexOf("ct_")===0;
+    var grupos = ehCtrl ? GRUPOS_CT.slice() : GRUPOS.slice();
+    if(!ehCtrl){
+      if(eletr.checked) grupos.splice(2,0,ELETRICO);
+      if(ctrl.checked)  grupos.push(CTRLG);
+    }
 
     grupos.forEach(function(g){
       var itens=g.itens.filter(function(i){return aplica(i.c,t);});
@@ -826,10 +960,12 @@
       L.push("  >> Pode haver defeito empilhado atras do defeito principal.");
     }
     var ints=[];
-    if(r.mod) ints.push("Modelo do console: "+r.mod);
-    if(r.ser) ints.push("Serial do console: "+r.ser);
-    if(r.hdm) ints.push("Modelo do HD/SSD: "+r.hdm);
-    if(r.hds) ints.push("Serial do HD/SSD: "+r.hds);
+    var rot=( (r.tipo||"").indexOf("ct_")===0 ) ? "controle" : "console";
+    if(r.mod) ints.push("Modelo do "+rot+": "+r.mod);
+    if(r.ser) ints.push("Serial do "+rot+": "+r.ser);
+    var ehC = (r.tipo||"").indexOf("ct_")===0;
+    if(!ehC && r.hdm) ints.push("Modelo do HD/SSD: "+r.hdm);
+    if(!ehC && r.hds) ints.push("Serial do HD/SSD: "+r.hds);
     if(r.fotos&&r.fotos.length) ints.push("Fotos anexadas: "+r.fotos.map(function(f){return f.rot;}).join(", "));
     if(ints.length){
       L.push("");
@@ -1038,16 +1174,25 @@
     window.scrollTo({top:0,behavior:"smooth"});
   }
 
+  on("#mcancel","click",function(){ $("#modal").classList.remove("on"); _okFn=null; });
+  on("#mok","click",function(){
+    $("#modal").classList.remove("on");
+    var f=_okFn; _okFn=null;
+    if(typeof f==="function") f();
+  });
+
   on("#excluir","click",function(){
-    if(!idAtual) return;
+    if(!idAtual){ salvar(); }
+    if(!idAtual){ alert("Este checklist ainda não foi salvo."); return; }
     var reg=ler().filter(function(x){return x.id===idAtual;})[0];
     var qtd=reg&&reg.fotos?reg.fotos.length:0;
-    if(!confirm("Excluir este checklist"+(qtd?" e suas "+qtd+" foto(s)":"")+"?\n\nEsta ação não pode ser desfeita.")) return;
-    if(!confirm("Confirma mesmo a exclusão?")) return;
-    if(reg&&reg.fotos) reg.fotos.forEach(function(f){ fotoApagar(f.id); });
-    gravar(ler().filter(function(x){return x.id!==idAtual;}));
-    novoChecklist();
-    alert("Checklist excluído.");
+    pergunta("Excluir este checklist"+(qtd?" e suas "+qtd+" foto(s)":"")+"?\n\nEsta ação não pode ser desfeita.",
+      function(){
+        if(reg&&reg.fotos) reg.fotos.forEach(function(f){ fotoApagar(f.id); });
+        gravar(ler().filter(function(x){return x.id!==idAtual;}));
+        novoChecklist();
+        alert("Checklist excluído.");
+      });
   });
 
   tipo.addEventListener("change",function(){montar();salvar();});
