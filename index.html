@@ -909,7 +909,7 @@
   /* monta o texto do resumo a partir de um REGISTRO salvo */
   function textoResumo(r){
     var t=r.tipo, L=[], cat={}, neg={};
-    GRUPOS.concat([ELETRICO,CTRLG]).forEach(function(g){
+    GRUPOS.concat(GRUPOS_CT).concat([ELETRICO,CTRLG]).forEach(function(g){
       g.itens.forEach(function(i){ cat[i.id]=i; neg[i.id]=!!g.neg; });
     });
     var lp=function(x){ return x.replace(/\?$/,""); };
@@ -1007,7 +1007,7 @@
       for(var k in r.estado){ var v=r.estado[k].v;
         if(v==="blq") b++; else if(v) { a++; } }
       // conta defeitos/ok pelo catalogo
-      var cat={}; GRUPOS.concat([ELETRICO,CTRLG]).forEach(function(g){
+      var cat={}; GRUPOS.concat(GRUPOS_CT).concat([ELETRICO,CTRLG]).forEach(function(g){
         g.itens.forEach(function(i){ cat[i.id]=!!g.neg; }); });
       d=0;o=0;
       for(var k2 in r.estado){
